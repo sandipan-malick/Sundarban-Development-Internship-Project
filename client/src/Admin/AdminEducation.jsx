@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API = "http://localhost:5080/api/education";
+const API = "https://sundarban-development-internship-project.onrender.com/api/education";
 axios.defaults.withCredentials = true;
 
 export default function AdminEducation() {
@@ -11,7 +11,7 @@ export default function AdminEducation() {
     useEffect(() => {
     const checkAdminAuth = async () => {
       try {
-        await axios.get("http://localhost:5080/admin-education", {
+        await axios.get("https://sundarban-development-internship-project.onrender.com/admin-education", {
           withCredentials: true,
         });
       } catch (err) {
