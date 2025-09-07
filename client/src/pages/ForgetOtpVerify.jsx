@@ -62,7 +62,7 @@ const ForgetOtpVerify = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5080/api/user/verify-forget-otp",
+        "https://sundarban-development-internship-project.onrender.com/api/user/verify-forget-otp",
         { otp: otp.join(""), email: userData.email }
       );
 
@@ -80,7 +80,7 @@ const ForgetOtpVerify = () => {
   // Resend OTP
   const handleResend = async () => {
     try {
-      await axios.post("http://localhost:5080/api/user/send-forget-otp", {
+      await axios.post("https://sundarban-development-internship-project.onrender.com/api/user/send-forget-otp", {
         email: userData.email,
       });
       alert("New OTP sent to your email.");
