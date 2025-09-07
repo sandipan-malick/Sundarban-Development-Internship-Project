@@ -13,13 +13,13 @@ export default function AdminBooking() {
     const fetchData = async () => {
       try {
         // 1. Check admin authentication
-        await axios.get("http://localhost:5080/admin-booking", { withCredentials: true });
+        await axios.get("https://sundarban-development-internship-project.onrender.com/admin-booking", { withCredentials: true });
 
         // 2. Fetch admin data
         const [bRes, cRes, aRes] = await Promise.all([
-          axios.get("http://localhost:5080/api/admin/bookings", { withCredentials: true }),
-          axios.get("http://localhost:5080/api/admin/confirmed", { withCredentials: true }),
-          axios.get("http://localhost:5080/api/admin/addresses", { withCredentials: true }),
+          axios.get("https://sundarban-development-internship-project.onrender.com/api/admin/bookings", { withCredentials: true }),
+          axios.get("https://sundarban-development-internship-project.onrender.com/api/admin/confirmed", { withCredentials: true }),
+          axios.get("https://sundarban-development-internship-project.onrender.com/api/admin/addresses", { withCredentials: true }),
         ]);
 
         setBookings(bRes.data);
