@@ -10,8 +10,6 @@ const {
   getAllOrder,
 } = require("../controllers/cartController");
 const authMiddleware = require("../middleware/authMiddleware");
-const { auth } = require("../../client/src/firebase");
-
 // Add to cart
 router.post("/product-booking", authMiddleware, addToCart);
 
@@ -29,6 +27,7 @@ router.post("/confirm", authMiddleware, confirmOrder);
 
 router.get("/history", authMiddleware, getProductHistory);
 
-router.get("/admin-order", getAllOrder)
+router.get("/admin-order", getAllOrder);
+
 
 module.exports = router;
