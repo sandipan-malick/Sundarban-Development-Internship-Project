@@ -97,7 +97,7 @@ export default function Cart() {
       paymentCompletedRef.current = false;
 
       const { data: order } = await axios.post(
-        "http://localhost:5080/api/cart/payment",
+        "http://localhost:5080/api/payment",
         { amount: totalPrice },
         { withCredentials: true }
       );
