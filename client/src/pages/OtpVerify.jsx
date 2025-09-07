@@ -61,7 +61,7 @@ function OtpVerify() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5080/api/user/verify-otp", {
+      const response = await axios.post("https://sundarban-development-internship-project.onrender.com/api/user/verify-otp", {
         otp: otp.join(""),
         username: userData.username,
         email: userData.email,
@@ -80,7 +80,7 @@ function OtpVerify() {
   // Resend OTP
   const handleResend = async () => {
     try {
-      await axios.post("http://localhost:5080/api/user/send-otp", {
+      await axios.post("https://sundarban-development-internship-project.onrender.com/api/user/send-otp", {
         email: userData.email,
       });
       alert("OTP resent to your email.");
