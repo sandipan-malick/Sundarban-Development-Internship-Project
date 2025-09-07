@@ -19,7 +19,7 @@ export default function Cart() {
   // Protected route: check auth
   const checkAuth = async () => {
     try {
-      await axios.get("http://localhost:5080/cart", { withCredentials: true });
+      await axios.get("https://sundarban-development-internship-project.onrender.com/cart", { withCredentials: true });
       setLoading(false);
     } catch (err) {
       console.error("User not authenticated:", err);
@@ -38,8 +38,8 @@ export default function Cart() {
     const fetchData = async () => {
       try {
         const [bookingsRes, addressesRes] = await Promise.all([
-          axios.get("http://localhost:5080/api/booking", { withCredentials: true }),
-          axios.get("http://localhost:5080/api/address", { withCredentials: true }),
+          axios.get("https://sundarban-development-internship-project.onrender.com/api/booking", { withCredentials: true }),
+          axios.get("https://sundarban-development-internship-project.onrender.com/api/address", { withCredentials: true }),
         ]);
         setCartItems(bookingsRes.data.bookings || []);
         setAddresses(addressesRes.data || []);
@@ -55,7 +55,7 @@ export default function Cart() {
   // Remove single booking
   const handleRemove = async (id) => {
     try {
-      await axios.delete(`http://localhost:5080/api/booking/${id}`, { withCredentials: true });
+      await axios.delete(`https://sundarban-development-internship-project.onrender.com/api/booking/${id}`, { withCredentials: true });
       setCartItems((prev) => prev.filter((item) => item._id !== id));
     } catch (err) {
       console.error(err);
@@ -72,7 +72,7 @@ export default function Cart() {
   const confirmBooking = async (paymentId) => {
     try {
       await axios.post(
-        "http://localhost:5080/api/booking/confirm",
+        "https://sundarban-development-internship-project.onrender.com/api/booking/confirm",
         { paymentId, addressId: selectedAddressId },
         { withCredentials: true }
       );
@@ -97,7 +97,7 @@ export default function Cart() {
       paymentCompletedRef.current = false;
 
       const { data: order } = await axios.post(
-        "http://localhost:5080/api/payment",
+        "https://sundarban-development-internship-project.onrender.com/api/payment",
         { amount: totalPrice },
         { withCredentials: true }
       );
