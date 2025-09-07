@@ -24,7 +24,7 @@ export default function EducationAwareness() {
   useEffect(() => {
     const verifyAuth = async () => {
       try {
-        await axios.get("http://localhost:5080/education", {
+        await axios.get("https://sundarban-development-internship-project.onrender.com/education", {
           withCredentials: true,
         });
         setLoading(false);
