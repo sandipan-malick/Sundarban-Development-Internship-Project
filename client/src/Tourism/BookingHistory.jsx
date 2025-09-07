@@ -11,7 +11,7 @@ export default function BookingHistory() {
 
   const checkAuth = async () => {
     try {
-      await axios.get("http://localhost:5080/history", {
+      await axios.get("https://sundarban-development-internship-project.onrender.com/history", {
         withCredentials: true,
       });
     } catch (err) {
@@ -24,7 +24,7 @@ export default function BookingHistory() {
     const fetchHistory = async () => {
       try {
         await checkAuth();
-        const res = await axios.get("http://localhost:5080/api/booking/history", {
+        const res = await axios.get("https://sundarban-development-internship-project.onrender.com/api/booking/history", {
           withCredentials: true,
         });
         setHistory(res.data || []);
