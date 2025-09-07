@@ -75,7 +75,7 @@ export default function LandingPage() {
 
   const handleLogout = async () => {
     try {
-      await api.post("http://localhost:5080/api/user/logout", {}, { withCredentials: true });
+      await api.post("https://sundarban-development-internship-project.onrender.com/api/user/logout", {}, { withCredentials: true });
       window.location.reload();
     } catch (err) {
       console.error("Logout failed:", err);
