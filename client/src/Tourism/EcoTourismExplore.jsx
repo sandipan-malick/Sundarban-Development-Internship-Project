@@ -24,7 +24,7 @@ export default function DetailedSundarbansMap() {
   // Check if user is authenticated
   const checkAuth = async () => {
     try {
-      await axios.get("http://localhost:5080/ecoTourism", {
+      await axios.get("https://sundarban-development-internship-project.onrender.com/ecoTourism", {
         withCredentials: true,
       });
       setLoading(false); // Authenticated, allow access
