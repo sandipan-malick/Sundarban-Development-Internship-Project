@@ -6,10 +6,11 @@ export default defineConfig({
   optimizeDeps: {
     include: ['jwt-decode'],
   },
+  base: './', // ensures correct asset paths on Netlify
   server: {
     proxy: {
       '/api': {
-        target: 'https://sundarban-development-internship-project.onrender.com',
+        target: '', // local dev proxy only
         changeOrigin: true,
         secure: false,
       },
