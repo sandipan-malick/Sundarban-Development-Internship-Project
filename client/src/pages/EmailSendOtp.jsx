@@ -15,7 +15,7 @@ function EmailSendOtp() {
   useEffect(() => {
     const sendOtp = async () => {
       try {
-        const res = await axios.post('http://localhost:5080/api/user/send-otp', {
+        const res = await axios.post('https://sundarban-development-internship-project.onrender.com/api/user/send-otp', {
           email: userData.email,
         });
 
