@@ -23,7 +23,7 @@ function AdminProductDashboard() {
   useEffect(() => {
     const checkAdminAuth = async () => {
       try {
-        await axios.get("http://localhost:5080/admin-product-dashboard", {
+        await axios.get("https://sundarban-development-internship-project.onrender.com/admin-product-dashboard", {
           withCredentials: true,
         });
       } catch (err) {
@@ -42,7 +42,7 @@ function AdminProductDashboard() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5080/api/product");
+      const res = await axios.get("https://sundarban-development-internship-project.onrender.com/api/product");
       setProducts(res.data);
     } catch (err) {
       console.error(err);
@@ -55,7 +55,7 @@ function AdminProductDashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5080/api/product", {
+      await axios.post("https://sundarban-development-internship-project.onrender.com/api/product", {
         ...form,
         price: Number(form.price),
         rating: Number(form.rating),
@@ -81,7 +81,7 @@ function AdminProductDashboard() {
   // -----------------------------
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5080/api/product/${id}`);
+      await axios.delete(`https://sundarban-development-internship-project.onrender.com/api/product/${id}`);
       setProducts((prev) => prev.filter((p) => p._id !== id));
     } catch (err) {
       alert("Error deleting product");
