@@ -14,7 +14,7 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("http://localhost:5080/admin-dashboard", {
+        const res = await axios.get("https://sundarban-development-internship-project.onrender.com/admin-dashboard", {
           withCredentials: true,
         });
         setAdmin(res.data);
@@ -31,7 +31,7 @@ export default function AdminDashboardPage() {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:5080/api/admin/logout",
+        "https://sundarban-development-internship-project.onrender.com/api/admin/logout",
         {},
         { withCredentials: true }
       );
