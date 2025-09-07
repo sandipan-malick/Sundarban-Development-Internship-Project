@@ -7,7 +7,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ['jwt-decode'], // ensures jwt-decode is pre-bundled
   },
-  base: './', // important for correct asset paths on Netlify
+  base: '/', // important for correct asset paths on Netlify
   server: {
     // local development proxy to backend
     proxy: {
