@@ -22,7 +22,7 @@ function Register() {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5080/api/user/check-email", {
+      const res = await axios.post("https://sundarban-development-internship-project.onrender.com/api/user/check-email", {
         email: form.email,
       });
 
@@ -41,7 +41,7 @@ function Register() {
       const result = await signInWithGooglePopup();
       const googleUser = result.user;
 
-      const res = await axios.post("http://localhost:5080/api/user/google-register", {
+      const res = await axios.post("https://sundarban-development-internship-project.onrender.com/api/user/google-register", {
         email: googleUser.email,
         username: googleUser.displayName,
       });
