@@ -22,7 +22,7 @@ export default function AddressPage() {
   // 🔹 Fetch addresses from backend
   const loadAddresses = async () => {
     try {
-      const res = await axios.get("http://localhost:5080/api/address", {
+      const res = await axios.get("https://sundarban-development-internship-project.onrender.com/api/address", {
         withCredentials: true,
       });
       setAddresses(res.data || []);
@@ -56,7 +56,7 @@ export default function AddressPage() {
 
         try {
           const res = await axios.get(
-            `http://localhost:5080/api/location/reverse?lat=${latitude}&lon=${longitude}`,
+            `https://sundarban-development-internship-project.onrender.com/api/location/reverse?lat=${latitude}&lon=${longitude}`,
             { withCredentials: true }
           );
 
@@ -120,13 +120,13 @@ export default function AddressPage() {
 
       if (editId) {
         await axios.put(
-          `http://localhost:5080/api/address/${editId}`,
+          `https://sundarban-development-internship-project.onrender.com/api/address/${editId}`,
           payload,
           { withCredentials: true }
         );
         alert("Address updated!");
       } else {
-        await axios.post("http://localhost:5080/api/address", payload, {
+        await axios.post("https://sundarban-development-internship-project.onrender.com/api/address", payload, {
           withCredentials: true,
         });
         alert("Address added!");
@@ -166,7 +166,7 @@ export default function AddressPage() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this address?")) return;
     try {
-      await axios.delete(`http://localhost:5080/api/address/${id}`, {
+      await axios.delete(`https://sundarban-development-internship-project.onrender.com/api/address/${id}`, {
         withCredentials: true,
       });
       setAddresses(addresses.filter((a) => a._id !== id));
