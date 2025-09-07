@@ -31,9 +31,7 @@ const app = express();
 
 // Allow origins (update when you deploy frontend)
 const allowedOrigins = [
-  "http://localhost:5173",  // Vite/React local
-  "http://localhost:5000",  // CRA local
-  process.env.FRONTEND_URL  // Production frontend URL (e.g., https://your-frontend.onrender.com)
+  "https://sundarban-development.netlify.app/",  // Vite/React loc  // Production frontend URL (e.g., https://your-frontend.onrender.com)
 ];
 
 app.use(
