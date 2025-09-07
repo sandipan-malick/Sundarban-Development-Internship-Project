@@ -10,7 +10,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: '', // local dev proxy only
+        target: 'https://sundarban-development-internship-project.onrender.com', // local dev proxy only
         changeOrigin: true,
         secure: false,
       },
