@@ -36,7 +36,7 @@ function ResetPassword() {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:5080/api/user/reset-password",
+        "https://sundarban-development-internship-project.onrender.com/api/user/reset-password",
         { email, newPassword }
       );
 
