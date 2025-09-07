@@ -30,7 +30,7 @@ export default function AllPlaces() {
   // Check auth
   const checkAuth = async () => {
     try {
-      await axios.get("http://localhost:5080/all-data", {
+      await axios.get("https://sundarban-development-internship-project.onrender.com/all-data", {
         withCredentials: true,
       });
     } catch (err) {
@@ -44,7 +44,7 @@ export default function AllPlaces() {
     const fetchPlaces = async () => {
       try {
         await checkAuth();
-        const res = await axios.get("http://localhost:5080/api/places", {
+        const res = await axios.get("https://sundarban-development-internship-project.onrender.com/api/places", {
           withCredentials: true,
         });
         setPlaces(res.data || []);
@@ -91,7 +91,7 @@ export default function AllPlaces() {
     const bookingDate = bookingDates[placeId];
     try {
       const res = await axios.post(
-        "http://localhost:5080/api/booking",
+        "https://sundarban-development-internship-project.onrender.com/api/booking",
         { placeId, quantity, bookingDate },
         { withCredentials: true }
       );
