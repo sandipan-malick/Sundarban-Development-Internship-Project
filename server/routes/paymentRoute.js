@@ -3,7 +3,6 @@ const router = express.Router();
 const { getPayment, verifyPayment } = require("../controllers/paymentController");
 const authMiddleware = require("../middleware/authMiddleware");
 
-router.post("/payment", authMiddleware, getPayment);
-router.post("/verify", authMiddleware, verifyPayment);
+router.post("/", authMiddleware, getPayment);
 
 module.exports = router;
