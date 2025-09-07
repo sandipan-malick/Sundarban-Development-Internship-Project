@@ -216,6 +216,7 @@ exports.login = async (req, res) => {
 };
 
 // 9. Google Login
+// 9. Google Login
 exports.googleLogin = async (req, res) => {
   try {
     const { email, username } = req.body;
@@ -226,7 +227,7 @@ exports.googleLogin = async (req, res) => {
     let user = await User.findOne({ email });
 
     if (!user) {
-      // If no user exists → create one for Google
+      // Create new user if not found
       user = await User.create({
         username: username || email.split("@")[0],
         email,
@@ -234,8 +235,8 @@ exports.googleLogin = async (req, res) => {
         authProvider: "google",
       });
     } else {
-      // If user exists with local provider → upgrade to allow Google too
-      if (user.authProvider === "local") {
+      // Upgrade to Google auth if local exists
+      if (!user.authProvider || user.authProvider === "local") {
         user.authProvider = "google";
         await user.save();
       }
@@ -245,18 +246,15 @@ exports.googleLogin = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-    sendEmail(
-      email,
-      "🎉 Login Successful",
-      `Hi ${user.username},\n\nYour login was successful!\n\nThanks for joining us.\n\n- Sundarbon Development Team`
-    ).catch((err) => console.error("Email error:", err));
-         res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-      path: "/",
-      maxAge: 24 * 60 * 60 * 1000,
-    })
+
+    // ✅ Use same cookie config as normal login
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // true on Render/Netlify
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        maxAge: 24 * 60 * 60 * 1000, // 1 day
+      })
       .status(200)
       .json({
         message: "Google login successful",
@@ -266,13 +264,11 @@ exports.googleLogin = async (req, res) => {
           email: user.email,
         },
       });
-
   } catch (err) {
     console.error("Google login error:", err);
     res.status(500).json({ error: "Server error during Google login" });
   }
 };
-
 
 //  5. Forgot Password (send OTP)
 exports.forgotPassword = async (req, res) => {
