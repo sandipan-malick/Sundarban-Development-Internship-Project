@@ -34,26 +34,29 @@ function Login() {
   };
 
   // Google login
-  const handleGoogleLogin = async () => {
-    setError("");
-    try {
-      const googleUser = await signInWithGooglePopup();
-      const profile = googleUser.user;
+const handleGoogleLogin = async () => {
+  try {
+    const result = await signInWithGooglePopup();
+    const googleUser = result.user;
 
-      const res = await axios.post("https://sundarban-development-internship-project.onrender.com/api/user/google-login", {
-        email: profile.email,
-        username: profile.displayName,
+    const res = await axios.post(
+      "https://sundarban-development-internship-project.onrender.com/api/user/google-login",
+      {
+        email: googleUser.email,
+        username: googleUser.displayName || googleUser.email.split("@")[0],
       },
-        { withCredentials: true } 
+      { withCredentials: true } // ✅ to save cookie (token)
     );
 
-      console.log("Google login success:", res.data);
-      navigate("/");
-    } catch (err) {
-      console.error("Google login error:", err);
-      setError(err.response?.data?.error || "Google login failed");
+    if (res.status === 200) {
+      alert("Google login successful!");
+      navigate("/"); // or dashboard
     }
-  };
+  } catch (err) {
+    console.error("Google login error:", err);
+    setError(err.response?.data?.error || "Google login failed");
+  }
+};
 
   return (
     <div className="flex flex-col min-h-screen">
