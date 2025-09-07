@@ -40,7 +40,7 @@ function Login() {
       const googleUser = await signInWithGooglePopup();
       const profile = googleUser.user;
 
-      const res = await axios.post("http://localhost:5080/api/user/google-login", {
+      const res = await axios.post("https://sundarban-development-internship-project.onrender.com/api/user/google-login", {
         email: profile.email,
         username: profile.displayName,
       },
