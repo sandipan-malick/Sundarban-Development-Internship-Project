@@ -21,7 +21,7 @@ function AdminDashboard() {
   useEffect(() => {
     const checkAdminAuth = async () => {
       try {
-        await axios.get("http://localhost:5080/dashboard-admin", {
+        await axios.get("https://sundarban-development-internship-project.onrender.com/dashboard-admin", {
           withCredentials: true,
         });
       } catch (err) {
@@ -38,7 +38,7 @@ function AdminDashboard() {
 
   const fetchPlaces = async () => {
     try {
-      const res = await axios.get("http://localhost:5080/api/places");
+      const res = await axios.get("https://sundarban-development-internship-project.onrender.com/api/places");
       setPlaces(res.data);
     } catch (err) {
       console.error(err);
@@ -50,7 +50,7 @@ function AdminDashboard() {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:5080/api/places",
+        "https://sundarban-development-internship-project.onrender.com/api/places",
         {
           ...form,
           price: Number(form.price),
@@ -78,7 +78,7 @@ function AdminDashboard() {
   // Delete a place
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5080/api/places/${id}`, {
+      await axios.delete(`https://sundarban-development-internship-project.onrender.com/api/places/${id}`, {
         withCredentials: true,
       });
       setPlaces((prev) => prev.filter((p) => p._id !== id));
