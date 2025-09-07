@@ -17,7 +17,7 @@ export default function AllProduct() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5080/api/product", {
+        const res = await axios.get("https://sundarban-development-internship-project.onrender.com/api/product", {
           withCredentials: true,
         });
         setProducts(res.data || []);
@@ -55,7 +55,7 @@ export default function AllProduct() {
     try {
       const quantity = quantities[id] || 1;
       await axios.post(
-        "http://localhost:5080/api/cart/product-booking",
+        "https://sundarban-development-internship-project.onrender.com/api/cart/product-booking",
         { productId: id, quantity },
         { withCredentials: true }
       );
