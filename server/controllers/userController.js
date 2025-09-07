@@ -379,14 +379,27 @@ exports.resetPassword = async (req, res) => {
   }
 };
 // Logout
+// controllers/authController.js
 exports.logout = (req, res) => {
   try {
-    // Delete cookies
-    res.clearCookie("token"); // or whatever your auth cookie name is
-    res.clearCookie("connect.sid"); // if using express-session
+    // Clear JWT/auth cookie
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: true,     // true if using https (Render, Vercel, etc.)
+      sameSite: "none", // must match what you set at login
+    });
+
+    // If you are using express-session, clear session cookie too
+    res.clearCookie("connect.sid", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
+
     res.status(200).json({ message: "Logged out successfully" });
   } catch (err) {
     console.error("Logout error:", err);
     res.status(500).json({ error: "Failed to logout" });
   }
 };
+
