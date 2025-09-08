@@ -8,18 +8,14 @@ axios.defaults.withCredentials = true;
 export default function AdminEducation() {
   const navigate = useNavigate();
   const [tab, setTab] = useState("articles");
-    useEffect(() => {
-    const checkAdminAuth = async () => {
-      try {
-        await axios.get("https://sundarban-development-internship-project.onrender.com/admin-education", {
-          withCredentials: true,
-        });
-      } catch (err) {
-        navigate("/admin-login");
-      }
-    };
-    checkAdminAuth();
-  }, [navigate]);
+   useEffect(() => {
+     const checkAdminAuth = async () => {
+       try { 
+         await axios.get("https://sundarban-development-internship-project.onrender.com/admin-education", 
+         { withCredentials: true, }); }
+       catch (err) { navigate("/admin-login"); } }; 
+       checkAdminAuth(); }, 
+             [navigate]);
   return (
     <div className="max-w-6xl px-6 py-10 mx-auto">
       <h1 className="mb-8 text-3xl font-bold text-green-700">Admin • Education</h1>
