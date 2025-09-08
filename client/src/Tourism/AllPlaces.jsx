@@ -264,7 +264,7 @@ export default function AllPlaces() {
       </div>
 
       {/* ✅ Footer Nav (Mobile) */}
-      <footer className="fixed bottom-0 left-0 right-0 text-white bg-green-700 text-white border-t shadow-lg md:hidden">
+      <footer className="fixed bottom-0 left-0 right-0 text-white bg-green-700  border-t shadow-lg md:hidden">
         <div className="flex justify-around p-2">
           {[
             { to: "/", icon: <FaHome />, label: "Home" },
@@ -278,7 +278,7 @@ export default function AllPlaces() {
               to={link.to}
               className={`flex flex-col items-center px-3 py-1 rounded-lg transition ${currentPath === link.to
                   ? "text-green-600 bg-green-100"
-                  : "text-gray-600 hover:text-green-600"
+                  : "text-white hover:text-green-600"
                 }`}
             >
               {link.icon}
