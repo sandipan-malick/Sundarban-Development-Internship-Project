@@ -85,7 +85,19 @@ exports.loginAdmin = async (req, res) => {
 // @desc Admin logout
 // @route POST /api/admin/logout
 // @access Private
+// @desc Admin logout
+// @route POST /api/admin/logout
+// @access Private
 exports.logoutAdmin = (req, res) => {
-  res.clearCookie("adminToken");
-  res.json({ message: "Logout successful" });
+  try {
+    res.clearCookie("adminToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // must match login cookie
+      sameSite: "none",
+    });
+    res.status(200).json({ message: "Logout successful" });
+  } catch (err) {
+    console.error("❌ Admin logout error:", err.message);
+    res.status(500).json({ message: "Server error" });
+  }
 };
