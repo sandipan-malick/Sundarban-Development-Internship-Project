@@ -161,9 +161,9 @@ export default function AddressPage() {
     return <p className="mt-20 text-center text-red-500">{error}</p>;
 
   return (
-    <div className="max-w-4xl p-4 mx-auto min-h-screen bg-gradient-to-b from-green-50 to-green-100">
+    <div className="max-w-4xl p-4 mx-auto min-h-screen bg-gradient-to-b from-green-50 to-green-100 relative pb-20 sm:pb-0">
       {/* 🔹 Mobile Top Bar */}
-      <div className="flex items-center justify-between mb-6 md:hidden bg-green-700 px-4 py-3 rounded shadow">
+      <div className="flex items-center justify-between mb-6 md:hidden bg-green-700 px-4 py-3 rounded shadow fixed top-0 left-0 right-0 z-20">
         <button
           onClick={() => navigate(-1)}
           className="flex items-center gap-2 px-3 py-2 text-sm text-white bg-green-800 rounded-lg hover:bg-green-900 transition-colors"
@@ -179,7 +179,7 @@ export default function AddressPage() {
       </div>
 
       {/* 🔹 Desktop Top Nav */}
-      <div className="justify-between hidden mb-6 md:flex bg-green-700 px-6 py-4 rounded shadow">
+      <div className="justify-between hidden mb-6 md:flex bg-green-700 px-6 py-4 rounded shadow sticky top-0 z-20">
         <Link
           to="/"
           className="flex items-center gap-2 px-6 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors text-lg font-semibold"
@@ -188,7 +188,7 @@ export default function AddressPage() {
         </Link>
       </div>
 
-      <h1 className="mb-8 text-3xl font-extrabold text-center text-green-900 sm:text-4xl tracking-tight drop-shadow-md">
+      <h1 className="mb-8 pt-16 md:pt-0 text-3xl font-extrabold text-center text-green-900 sm:text-4xl tracking-tight drop-shadow-md">
         My Addresses
       </h1>
 
@@ -312,7 +312,7 @@ export default function AddressPage() {
       </div>
 
       {/* 🔹 Mobile Bottom Nav */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-green-700 shadow-inner md:hidden">
+      <footer className="fixed bottom-0 left-0 right-0 bg-green-700 shadow-inner md:hidden z-20">
         <div className="flex justify-around py-3">
           <Link
             to="/"
