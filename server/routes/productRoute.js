@@ -7,13 +7,14 @@ const {
   deleteProduct,
 } = require("../controllers/productController");
 const authMiddleware = require("../middleware/authMiddleware");
+const adminAuth = require("../middlware/adminAuth")
 
-// Public - get all products
-router.get("/", authMiddleware, listProducts);
+// ✅ Public - Get all products
+router.get("/", listProducts);
 
-// Admin - manage products
-router.post("/", createProduct);
-router.put("/id", updateProduct);
-router.delete("/", deleteProduct);
+// ✅ Admin - Manage products (protected)
+router.post("/", adminAuth, createProduct);
+router.put("/:id", adminAuth, updateProduct);
+router.delete("/:id", adminAuth, deleteProduct);
 
 module.exports = router;
