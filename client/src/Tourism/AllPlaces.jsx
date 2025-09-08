@@ -134,7 +134,7 @@ export default function AllPlaces() {
         <Link className="flex items-center gap-2 px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700" to="/">
           <FaHome /> Home
         </Link>
-        <Link className="flex items-center gap-2 px-4 py-2 text-white bg-yellow-600 rounded-lg hover:bg-yellow-700" to="/product-history">
+        <Link className="flex items-center gap-2 px-4 py-2 text-white bg-yellow-600 rounded-lg hover:bg-yellow-700" to="/history">
           <FaHistory /> History
         </Link>
         <Link className="flex items-center gap-2 px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700" to="/product-cart">
