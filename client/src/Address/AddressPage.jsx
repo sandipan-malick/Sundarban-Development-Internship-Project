@@ -15,6 +15,7 @@ export default function AddressPage() {
     state: "",
     zip: "",
   });
+
   const [editId, setEditId] = useState(null);
   const navigate = useNavigate();
 
@@ -48,14 +49,17 @@ export default function AddressPage() {
       alert("Geolocation is not supported by your browser");
       return;
     }
+
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
+
         try {
           const res = await axios.get(
             `https://sundarban-development-internship-project.onrender.com/api/location/reverse?lat=${latitude}&lon=${longitude}`,
             { withCredentials: true }
           );
+
           const address = res.data.address || {};
           const street =
             address.road ||
@@ -73,6 +77,7 @@ export default function AddressPage() {
             address.municipality ||
             address.county ||
             "";
+
           setForm((prev) => ({
             ...prev,
             street,
@@ -97,6 +102,7 @@ export default function AddressPage() {
     e.preventDefault();
     try {
       const payload = { ...form };
+
       if (editId) {
         await axios.put(
           `https://sundarban-development-internship-project.onrender.com/api/address/${editId}`,
@@ -112,6 +118,7 @@ export default function AddressPage() {
         );
         alert("Address added!");
       }
+
       setForm({ name: "", phone: "", street: "", city: "", state: "", zip: "" });
       setEditId(null);
       loadAddresses();
@@ -156,67 +163,64 @@ export default function AddressPage() {
         Loading addresses...
       </p>
     );
-
   if (error)
     return <p className="mt-20 text-center text-red-500">{error}</p>;
 
   return (
-    <div className="max-w-4xl p-4 mx-auto min-h-screen bg-gradient-to-b from-green-50 to-green-100 relative pb-20 sm:pb-0">
+    <div className="max-w-4xl p-4 mx-auto">
       {/* 🔹 Mobile Top Bar */}
-      <div className="flex items-center justify-between mb-6 md:hidden bg-green-700 px-4 py-3 rounded shadow fixed top-0 left-0 right-0 z-20">
+      <div className="flex items-center justify-between mb-6 md:hidden">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 px-3 py-2 text-sm text-white bg-green-800 rounded-lg hover:bg-green-900 transition-colors"
+          className="flex items-center gap-2 px-3 py-2 text-sm text-white bg-green-700 rounded-lg hover:bg-green-800"
         >
           <FaArrowLeft /> Back
         </button>
         <Link
           to="/"
-          className="flex items-center gap-2 px-3 py-2 text-sm text-white bg-green-800 rounded-lg hover:bg-green-900 transition-colors"
+          className="flex items-center gap-2 px-3 py-2 text-sm text-white bg-green-700 rounded-lg hover:bg-green-800"
         >
           <FaHome /> Home
         </Link>
       </div>
 
       {/* 🔹 Desktop Top Nav */}
-      <div className="justify-between hidden mb-6 md:flex bg-green-700 px-6 py-4 rounded shadow sticky top-0 z-20">
+      <div className="justify-between hidden mb-6 md:flex">
         <Link
           to="/"
-          className="flex items-center gap-2 px-6 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors text-lg font-semibold"
+          className="flex items-center gap-2 px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700"
         >
           <FaHome /> Home
         </Link>
       </div>
 
-      <h1 className="mb-8 pt-16 md:pt-0 text-3xl font-extrabold text-center text-green-900 sm:text-4xl tracking-tight drop-shadow-md">
+      <h1 className="mb-6 text-2xl font-bold text-center text-green-700 sm:text-3xl">
         My Addresses
       </h1>
 
       {/* 🔹 Address Form */}
       <form
         onSubmit={handleSubmit}
-        className="p-6 mb-10 bg-white rounded-xl shadow-lg max-w-3xl mx-auto"
+        className="p-4 mb-8 bg-white rounded-lg shadow-md"
       >
-        <h2 className="mb-6 text-xl font-semibold text-green-800 sm:text-2xl">
+        <h2 className="mb-4 text-lg font-semibold sm:text-xl">
           {editId ? "Edit Address" : "Add New Address"}
         </h2>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2">
           <input
             type="text"
             placeholder="Full Name"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="p-3 border border-green-300 rounded-md outline-none focus:ring-2 focus:ring-green-400 transition"
+            className="p-2 border rounded outline-none"
             required
           />
           <input
-            type="tel"
+            type="text"
             placeholder="Phone"
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
-            className="p-3 border border-green-300 rounded-md outline-none focus:ring-2 focus:ring-green-400 transition"
-            pattern="[\d\s+-]{7,15}"
-            title="Enter a valid phone number"
+            className="p-2 border rounded outline-none"
             required
           />
           <input
@@ -224,7 +228,7 @@ export default function AddressPage() {
             placeholder="Street"
             value={form.street}
             onChange={(e) => setForm({ ...form, street: e.target.value })}
-            className="col-span-2 p-3 border border-green-300 rounded-md outline-none focus:ring-2 focus:ring-green-400 transition"
+            className="col-span-2 p-2 border rounded outline-none"
             required
           />
           <input
@@ -232,7 +236,7 @@ export default function AddressPage() {
             placeholder="City"
             value={form.city}
             onChange={(e) => setForm({ ...form, city: e.target.value })}
-            className="p-3 border border-green-300 rounded-md outline-none focus:ring-2 focus:ring-green-400 transition"
+            className="p-2 border rounded outline-none"
             required
           />
           <input
@@ -240,7 +244,7 @@ export default function AddressPage() {
             placeholder="State"
             value={form.state}
             onChange={(e) => setForm({ ...form, state: e.target.value })}
-            className="p-3 border border-green-300 rounded-md outline-none focus:ring-2 focus:ring-green-400 transition"
+            className="p-2 border rounded outline-none"
             required
           />
           <input
@@ -248,23 +252,21 @@ export default function AddressPage() {
             placeholder="PIN Code"
             value={form.zip}
             onChange={(e) => setForm({ ...form, zip: e.target.value })}
-            className="p-3 border border-green-300 rounded-md outline-none focus:ring-2 focus:ring-green-400 transition"
+            className="p-2 border rounded outline-none"
             required
-            pattern="\d{4,10}"
-            title="Enter a valid postal code"
           />
         </div>
-        <div className="flex flex-wrap gap-4 mt-6 justify-center sm:justify-start">
+        <div className="flex flex-wrap gap-2 mt-4">
           <button
             type="submit"
-            className="w-full sm:w-auto px-6 py-3 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 active:scale-95 transition-transform"
+            className="flex-1 px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 sm:flex-none"
           >
             {editId ? "Update Address" : "Add Address"}
           </button>
           <button
             type="button"
             onClick={handleUseLocation}
-            className="w-full sm:w-auto px-6 py-3 text-white bg-green-600 rounded-lg shadow hover:bg-green-700 active:scale-95 transition-transform"
+            className="flex-1 px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700 sm:flex-none"
           >
             Use My Location
           </button>
@@ -272,37 +274,35 @@ export default function AddressPage() {
       </form>
 
       {/* 🔹 Address List */}
-      <div className="max-w-3xl mx-auto space-y-5">
+      <div className="grid gap-4">
         {addresses.length === 0 && (
-          <p className="text-center text-gray-600 italic">
+          <p className="text-center text-gray-500">
             No addresses added yet.
           </p>
         )}
         {addresses.map((addr) => (
           <div
             key={addr._id}
-            className="flex flex-col justify-between gap-4 p-5 bg-white rounded-xl shadow-lg sm:flex-row sm:items-center"
+            className="flex flex-col justify-between gap-3 p-4 bg-white rounded-lg shadow-md sm:flex-row sm:items-center"
           >
             <div>
-              <p className="font-semibold text-green-900 text-lg">
+              <p className="font-semibold">
                 {addr.name} | {addr.phone}
               </p>
-              <p className="text-green-800/90">
+              <p>
                 {addr.street}, {addr.city}, {addr.state} - {addr.zip}
               </p>
             </div>
-            <div className="flex flex-wrap gap-3 sm:gap-2">
+            <div className="flex gap-2">
               <button
                 onClick={() => handleEdit(addr)}
-                className="px-5 py-2 text-white bg-yellow-500 rounded-lg shadow hover:bg-yellow-600 active:scale-95 transition transform"
-                aria-label={`Edit address of ${addr.name}`}
+                className="px-3 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-600"
               >
                 Edit
               </button>
               <button
                 onClick={() => handleDelete(addr._id)}
-                className="px-5 py-2 text-white bg-red-600 rounded-lg shadow hover:bg-red-700 active:scale-95 transition transform"
-                aria-label={`Delete address of ${addr.name}`}
+                className="px-3 py-1 text-white bg-red-600 rounded hover:bg-red-700"
               >
                 Delete
               </button>
@@ -312,12 +312,11 @@ export default function AddressPage() {
       </div>
 
       {/* 🔹 Mobile Bottom Nav */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-green-700 shadow-inner md:hidden z-20">
+      <footer className="fixed bottom-0 left-0 right-0 bg-green-700 shadow-inner md:hidden">
         <div className="flex justify-around py-3">
           <Link
             to="/"
             className="flex flex-col items-center text-white hover:text-green-200"
-            aria-label="Navigate to Home"
           >
             <FaHome size={22} />
             <span className="text-xs">Home</span>
