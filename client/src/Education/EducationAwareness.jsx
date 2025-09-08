@@ -131,7 +131,7 @@ function KnowledgeBase() {
 
   useEffect(() => {
     axios
-      .get("/api/education/articles", { withCredentials: true })
+      .get("https://sundarban-development-internship-project.onrender.com/api/education/articles", { withCredentials: true })
       .then((res) => setArticles(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -163,7 +163,7 @@ function CommunityNews() {
 
   useEffect(() => {
     axios
-      .get("/api/education/news", { withCredentials: true })
+      .get("https://sundarban-development-internship-project.onrender.com/api/education/news", { withCredentials: true })
       .then((res) => setNews(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -219,7 +219,7 @@ function FAQ() {
 
   useEffect(() => {
     axios
-      .get("/api/education/faqs", { withCredentials: true })
+      .get("https://sundarban-development-internship-project.onrender.com/api/education/faqs", { withCredentials: true })
       .then((res) => setFaqs(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -253,7 +253,7 @@ function Quiz() {
 
   useEffect(() => {
     axios
-      .get("/api/education/quiz", { withCredentials: true })
+      .get("https://sundarban-development-internship-project.onrender.com/api/education/quiz", { withCredentials: true })
       .then((res) => setQuestions(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -271,7 +271,7 @@ function Quiz() {
 
     try {
       const res = await axios.post(
-        "/api/education/quiz/attempt",
+        "https://sundarban-development-internship-project.onrender.com/api/education/quiz/attempt",
         { answers },
         { withCredentials: true }
       );
