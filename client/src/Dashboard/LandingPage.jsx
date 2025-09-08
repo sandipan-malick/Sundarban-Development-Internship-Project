@@ -100,6 +100,14 @@ export default function LandingPage() {
           Sundarban Eco-tourism
         </div>
 
+        {/* Mobile Logout (top header, visible only on small devices) */}
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1 px-3 py-1 text-white bg-red-600 rounded-lg hover:bg-red-700 md:hidden"
+        >
+          <FaSignOutAlt /> {t.logoutBtn}
+        </button>
+
         {/* Desktop Nav */}
         <nav className="items-center hidden space-x-4 text-lg md:flex">
           <Link to="/" className="transition hover:text-earthy-brown">{language === "en" ? "Home" : "হোম"}</Link>
@@ -120,7 +128,7 @@ export default function LandingPage() {
             <FaMapMarkerAlt /> {t.addressBtn}
           </Link>
 
-          {/* Logout Button */}
+          {/* Logout Button (desktop only) */}
           <button
             onClick={handleLogout}
             className="flex items-center gap-1 px-3 py-1 text-white bg-red-600 rounded-lg hover:bg-red-700"
