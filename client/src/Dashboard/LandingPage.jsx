@@ -218,7 +218,7 @@ export default function LandingPage() {
         <Link to="/ecoTourism" className="flex flex-col items-center text-sm"><FaCompass className="mb-1 text-lg" />{language === "en" ? "Explore" : "এক্সপ্লোর"}</Link>
         <Link to="/education" className="flex flex-col items-center text-sm"><FaUsers className="mb-1 text-lg" />{language === "en" ? "Community" : "সম্প্রদায়"}</Link>
         <Link to="/all-data" className="flex flex-col items-center text-sm"><FaListUl className="mb-1 text-lg" />{language === "en" ? "Activities" : "কার্যক্রম"}</Link>
-        <Link to="/address" className="flex flex-col items-center text-sm"><FaAddressCard className="mb-1 text-lg" />{language === "en" ? "Activities" : "ঠিকানা"}</Link>
+        <Link to="/address" className="flex flex-col items-center text-sm"><FaAddressCard className="mb-1 text-lg" />{language === "en" ? "Address" : "ঠিকানা"}</Link>
         <button onClick={() => setShowContact(!showContact)} className="flex flex-col items-center text-sm"><FaEnvelope className="mb-1 text-lg" />{language === "en" ? "Contact" : "যোগাযোগ"}</button>
       </nav>
     </div>
