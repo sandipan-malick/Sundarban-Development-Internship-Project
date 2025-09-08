@@ -5,7 +5,7 @@ import axios from "axios";
 
 function AdminProductDashboard() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState("products"); // for future tabs
+  const [tab, setTab] = useState("products"); // future tabs if needed
   const [products, setProducts] = useState([]);
   const [form, setForm] = useState({
     name: "",
@@ -23,9 +23,10 @@ function AdminProductDashboard() {
   useEffect(() => {
     const checkAdminAuth = async () => {
       try {
-        await axios.get("https://sundarban-development-internship-project.onrender.com/admin-product-dashboard", {
-          withCredentials: true,
-        });
+        await axios.get(
+          "https://sundarban-development-internship-project.onrender.com/admin-product-dashboard",
+          { withCredentials: true }
+        );
       } catch (err) {
         navigate("/admin-login");
       }
@@ -42,10 +43,13 @@ function AdminProductDashboard() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("https://sundarban-development-internship-project.onrender.com/api/product");
+      const res = await axios.get(
+        "https://sundarban-development-internship-project.onrender.com/api/product",
+        { withCredentials: true }
+      );
       setProducts(res.data);
     } catch (err) {
-      console.error(err);
+      console.error("Error fetching products:", err);
     }
   };
 
@@ -55,12 +59,16 @@ function AdminProductDashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://sundarban-development-internship-project.onrender.com/api/product", {
-        ...form,
-        price: Number(form.price),
-        rating: Number(form.rating),
-        stock: Number(form.stock),
-      });
+      await axios.post(
+        "https://sundarban-development-internship-project.onrender.com/api/product",
+        {
+          ...form,
+          price: Number(form.price),
+          rating: Number(form.rating),
+          stock: Number(form.stock),
+        },
+        { withCredentials: true }
+      );
       fetchProducts();
       setForm({
         name: "",
@@ -81,7 +89,10 @@ function AdminProductDashboard() {
   // -----------------------------
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://sundarban-development-internship-project.onrender.com/api/product/${id}`);
+      await axios.delete(
+        `https://sundarban-development-internship-project.onrender.com/api/product/${id}`,
+        { withCredentials: true }
+      );
       setProducts((prev) => prev.filter((p) => p._id !== id));
     } catch (err) {
       alert("Error deleting product");
@@ -154,9 +165,7 @@ function AdminProductDashboard() {
           <textarea
             placeholder="Description"
             value={form.description}
-            onChange={(e) =>
-              setForm({ ...form, description: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
             className="col-span-1 p-2 border rounded-md md:col-span-2 focus:outline-none focus:ring-2 focus:ring-green-400"
           ></textarea>
           <button
@@ -196,6 +205,7 @@ function AdminProductDashboard() {
                   Rating: {parseFloat(p.rating).toFixed(1)}
                 </p>
                 <p className="text-sm text-gray-600">Stock: {p.stock}</p>
+                <p className="text-sm text-gray-600">{p.description}</p>
                 <button
                   onClick={() => handleDelete(p._id)}
                   className="w-full p-2 mt-2 text-white transition bg-red-500 rounded-md hover:bg-red-600"
