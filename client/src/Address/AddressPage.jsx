@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { FaHome, FaArrowLeft, FaMapMarkerAlt, FaEdit, FaTrash } from "react-icons/fa";
+import { FaHome, FaMapMarkerAlt, FaEdit, FaTrash } from "react-icons/fa";
 
 export default function AddressPage() {
   const [addresses, setAddresses] = useState([]);
@@ -169,55 +169,22 @@ export default function AddressPage() {
     );
 
   return (
-    <div className="max-w-5xl p-6 mx-auto min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <div className="max-w-md p-4 mx-auto min-h-screen bg-gradient-to-b from-green-50 to-white">
       {/* Mobile Top Bar */}
-      <div className="flex items-center justify-between mb-6 md:hidden">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-green-700 rounded-lg shadow hover:bg-green-800 transition"
-          aria-label="Go back"
-        >
-          <FaArrowLeft /> Back
-        </button>
-        <Link
-          to="/"
-          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-green-700 rounded-lg shadow hover:bg-green-800 transition"
-          aria-label="Go home"
-        >
-          <FaHome /> Home
-        </Link>
-      </div>
-
-      {/* Desktop Top Nav */}
-      <div className="hidden mb-8 md:flex justify-between items-center">
-        <Link
-          to="/"
-          className="flex items-center gap-3 px-5 py-3 text-white bg-green-600 rounded-lg shadow hover:bg-green-700 transition"
-          aria-label="Go home"
-        >
-          <FaHome size={20} /> Home
-        </Link>
-        <h1 className="text-3xl font-extrabold text-green-800 tracking-wide">
-          My Addresses
-        </h1>
-        <div /> {/* Empty div for spacing */}
-      </div>
-
-      {/* Heading for mobile */}
-      <h1 className="mb-6 text-3xl font-extrabold text-center text-green-800 md:hidden">
-        My Addresses
-      </h1>
+      <header className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-extrabold text-green-800">My Addresses</h1>
+      </header>
 
       {/* Address Form */}
       <form
         onSubmit={handleSubmit}
-        className="p-6 mb-10 bg-white rounded-xl shadow-lg max-w-3xl mx-auto"
+        className="p-5 mb-8 bg-white rounded-xl shadow-md"
         aria-label={editId ? "Edit Address Form" : "Add New Address Form"}
       >
-        <h2 className="mb-6 text-2xl font-semibold text-green-700 border-b border-green-200 pb-2">
+        <h2 className="mb-4 text-xl font-semibold text-green-700 border-b border-green-200 pb-2">
           {editId ? "Edit Address" : "Add New Address"}
         </h2>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="flex flex-col gap-4">
           <input
             type="text"
             placeholder="Full Name"
@@ -243,7 +210,7 @@ export default function AddressPage() {
             placeholder="Street"
             value={form.street}
             onChange={(e) => setForm({ ...form, street: e.target.value })}
-            className="col-span-2 p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             required
             aria-label="Street Address"
           />
@@ -277,7 +244,7 @@ export default function AddressPage() {
             title="Enter a valid PIN code"
           />
         </div>
-        <div className="flex flex-col gap-3 mt-6 sm:flex-row sm:justify-between">
+        <div className="flex flex-col gap-3 mt-6">
           <button
             type="submit"
             className="flex items-center justify-center gap-2 px-6 py-3 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition font-semibold"
@@ -293,68 +260,4 @@ export default function AddressPage() {
           >
             <FaMapMarkerAlt /> Use My Location
           </button>
-        </div>
-      </form>
-
-      {/* Address List */}
-      <section
-        className="max-w-4xl mx-auto"
-        aria-label="List of saved addresses"
-      >
-        {addresses.length === 0 ? (
-          <p className="text-center text-gray-500 text-lg italic">
-            No addresses added yet.
-          </p>
-        ) : (
-          <ul className="grid gap-6 sm:grid-cols-2">
-            {addresses.map((addr) => (
-              <li
-                key={addr._id}
-                className="flex flex-col justify-between p-5 bg-white rounded-xl shadow-md hover:shadow-lg transition"
-              >
-                <div>
-                  <p className="text-lg font-semibold text-green-800">
-                    {addr.name} <span className="text-sm font-normal text-gray-600">| {addr.phone}</span>
-                  </p>
-                  <p className="mt-1 text-gray-700">
-                    {addr.street}, {addr.city}, {addr.state} - {addr.zip}
-                  </p>
-                </div>
-                <div className="flex gap-3 mt-4">
-                  <button
-                    onClick={() => handleEdit(addr)}
-                    className="flex items-center gap-2 px-4 py-2 text-yellow-700 bg-yellow-100 rounded-lg shadow hover:bg-yellow-200 transition font-semibold"
-                    aria-label={`Edit address for ${addr.name}`}
-                  >
-                    <FaEdit /> Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(addr._id)}
-                    className="flex items-center gap-2 px-4 py-2 text-red-700 bg-red-100 rounded-lg shadow hover:bg-red-200 transition font-semibold"
-                    aria-label={`Delete address for ${addr.name}`}
-                  >
-                    <FaTrash /> Delete
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-
-      {/* Mobile Bottom Nav */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-green-700 shadow-inner md:hidden z-50">
-        <nav className="flex justify-around py-3">
-          <Link
-            to="/"
-            className="flex flex-col items-center text-white hover:text-green-200 transition"
-            aria-label="Home"
-          >
-            <FaHome size={24} />
-            <span className="text-xs mt-1 font-semibold">Home</span>
-          </Link>
-        </nav>
-      </footer>
-    </div>
-  );
-}
+        </div> ⬤
