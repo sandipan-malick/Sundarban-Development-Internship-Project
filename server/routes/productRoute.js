@@ -10,7 +10,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const adminAuth = require("../middlware/adminAuth")
 
 // ✅ Public - Get all products
-router.get("/", listProducts);
+router.get("/", authMiddleware, listProducts);
 
 // ✅ Admin - Manage products (protected)
 router.post("/", adminAuth, createProduct);
