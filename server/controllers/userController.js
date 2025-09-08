@@ -214,8 +214,6 @@ exports.login = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
-
-// 9. Google Login
 // 9. Google Login
 exports.googleLogin = async (req, res) => {
   try {
@@ -224,10 +222,10 @@ exports.googleLogin = async (req, res) => {
       return res.status(400).json({ error: "Email is required" });
     }
 
+    // Find or create user
     let user = await User.findOne({ email });
 
     if (!user) {
-      // Create new user if not found
       user = await User.create({
         username: username || email.split("@")[0],
         email,
@@ -235,7 +233,6 @@ exports.googleLogin = async (req, res) => {
         authProvider: "google",
       });
     } else {
-      // Upgrade to Google auth if local exists
       if (!user.authProvider || user.authProvider === "local") {
         user.authProvider = "google";
         await user.save();
@@ -247,13 +244,20 @@ exports.googleLogin = async (req, res) => {
       expiresIn: "1d",
     });
 
-    // ✅ Use same cookie config as normal login
+    // ✅ Send login notification email
+    sendEmail(
+      email,
+      "🎉 Google Login Successful",
+      `Hi ${user.username || "User"},\n\nYou have successfully logged in using Google.\n\nIf this wasn't you, please secure your account immediately.\n\n- Sundarbon Development Team`
+    ).catch((err) => console.error("Google login email error:", err));
+
+    // Set cookie and respond
     res
       .cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // true on Render/Netlify
+        secure: process.env.NODE_ENV === "production",
         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-        maxAge: 24 * 60 * 60 * 1000, // 1 day
+        maxAge: 24 * 60 * 60 * 1000,
       })
       .status(200)
       .json({
@@ -270,6 +274,9 @@ exports.googleLogin = async (req, res) => {
   }
 };
 
+
+  
+  
 //  5. Forgot Password (send OTP)
 exports.forgotPassword = async (req, res) => {
   try {
