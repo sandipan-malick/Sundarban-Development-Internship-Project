@@ -56,7 +56,7 @@ export default function AddressPage() {
 
         try {
           const res = await axios.get(
-            `/api/location/reverse?lat=${latitude}&lon=${longitude}`,
+            `https://sundarban-development-internship-project.onrender.com/api/location/reverse?lat=${latitude}&lon=${longitude}`,
             { withCredentials: true }
           );
 
