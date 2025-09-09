@@ -15,7 +15,7 @@ export default function AdminOrder() {
   useEffect(() => {
     const checkAdminAuth = async () => {
       try {
-        await axios.get("https://sundarban-development-internship-project.onrender.com/admin-education", {
+        await axios.get("https://sundarban-development-internship-project.onrender.com/admin-order", {
           withCredentials: true,
         });
       } catch (err) {
