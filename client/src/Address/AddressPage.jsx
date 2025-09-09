@@ -1,7 +1,8 @@
+// src/pages/AddressPage.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
-import {FaHome} from "react-icons/fa";
+import axios from "../utils/axios"; // ✅ use central axios instance
+import { FaHome } from "react-icons/fa";
 
 export default function AddressPage() {
   const [addresses, setAddresses] = useState([]);
@@ -22,9 +23,7 @@ export default function AddressPage() {
   // 🔹 Fetch addresses from backend
   const loadAddresses = async () => {
     try {
-      const res = await axios.get("https://sundarban-development-internship-project.onrender.com/api/address", {
-        withCredentials: true,
-      });
+      const res = await axios.get("/api/address");
       setAddresses(res.data || []);
     } catch (err) {
       console.error("Fetch addresses error:", err);
@@ -56,13 +55,11 @@ export default function AddressPage() {
 
         try {
           const res = await axios.get(
-            `https://sundarban-development-internship-project.onrender.com/api/location/reverse?lat=${latitude}&lon=${longitude}`,
-            { withCredentials: true }
+            `/api/location/reverse?lat=${latitude}&lon=${longitude}`
           );
 
           const address = res.data.address || {};
 
-          // ✅ Expanded street fallback
           const street =
             address.road ||
             address.residential ||
@@ -76,7 +73,6 @@ export default function AddressPage() {
             address.path ||
             "";
 
-          // ✅ City fallback
           const city =
             address.city ||
             address.town ||
@@ -119,16 +115,10 @@ export default function AddressPage() {
       };
 
       if (editId) {
-        await axios.put(
-          `https://sundarban-development-internship-project.onrender.com/api/address/${editId}`,
-          payload,
-          { withCredentials: true }
-        );
+        await axios.put(`/api/address/${editId}`, payload);
         alert("Address updated!");
       } else {
-        await axios.post("https://sundarban-development-internship-project.onrender.com/api/address", payload, {
-          withCredentials: true,
-        });
+        await axios.post("/api/address", payload);
         alert("Address added!");
       }
 
@@ -166,9 +156,7 @@ export default function AddressPage() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this address?")) return;
     try {
-      await axios.delete(`https://sundarban-development-internship-project.onrender.com/api/address/${id}`, {
-        withCredentials: true,
-      });
+      await axios.delete(`/api/address/${id}`);
       setAddresses(addresses.filter((a) => a._id !== id));
     } catch (err) {
       console.error("Delete address error:", err);
@@ -187,14 +175,16 @@ export default function AddressPage() {
 
   return (
     <div className="max-w-4xl p-6 mx-auto">
+      {/* Top Home Button (Desktop only) */}
       <div className="justify-between hidden mb-6 md:flex ">
-              <Link
-                to="/"
-                className="flex items-center gap-2 px-4 py-2 text-white bg-green-600 rounded-lg outline-none hover:bg-green-700"
-              >
-                <FaHome /> Home
-              </Link>
-            </div>
+        <Link
+          to="/"
+          className="flex items-center gap-2 px-4 py-2 text-white bg-green-600 rounded-lg outline-none hover:bg-green-700"
+        >
+          <FaHome /> Home
+        </Link>
+      </div>
+
       <h1 className="mb-6 text-3xl font-bold text-center text-green-700">
         My Addresses
       </h1>
@@ -277,9 +267,7 @@ export default function AddressPage() {
       {/* Address List */}
       <div className="grid gap-4">
         {addresses.length === 0 && (
-          <p className="text-center text-gray-500">
-            No addresses added yet.
-          </p>
+          <p className="text-center text-gray-500">No addresses added yet.</p>
         )}
         {addresses.map((addr) => (
           <div
@@ -311,14 +299,19 @@ export default function AddressPage() {
           </div>
         ))}
       </div>
-          <footer className="fixed bottom-0 left-0 right-0 bg-green-700 shadow-inner md:hidden">
-              <div className="flex justify-around py-3">
-                <Link to="/" className="flex flex-col items-center text-white hover:text-green-900">
-                  <FaHome size={22} />
-                  <span className="text-xs">Home</span>
-                </Link>
-              </div>
-            </footer>
+
+      {/* Bottom Mobile Footer */}
+      <footer className="fixed bottom-0 left-0 right-0 bg-green-700 shadow-inner md:hidden">
+        <div className="flex justify-around py-3">
+          <Link
+            to="/"
+            className="flex flex-col items-center text-white hover:text-green-900"
+          >
+            <FaHome size={22} />
+            <span className="text-xs">Home</span>
+          </Link>
+        </div>
+      </footer>
     </div>
   );
 }
