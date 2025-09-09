@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { FaHome, FaArrowLeft } from "react-icons/fa";
+import {FaHome} from "react-icons/fa";
 
 export default function AddressPage() {
   const [addresses, setAddresses] = useState([]);
@@ -19,13 +19,12 @@ export default function AddressPage() {
   const [editId, setEditId] = useState(null);
   const navigate = useNavigate();
 
-  // 🔹 Fetch addresses
+  // 🔹 Fetch addresses from backend
   const loadAddresses = async () => {
     try {
-      const res = await axios.get(
-        "https://sundarban-development-internship-project.onrender.com/api/address",
-        { withCredentials: true }
-      );
+      const res = await axios.get("https://sundarban-development-internship-project.onrender.com/api/address", {
+        withCredentials: true,
+      });
       setAddresses(res.data || []);
     } catch (err) {
       console.error("Fetch addresses error:", err);
@@ -39,11 +38,12 @@ export default function AddressPage() {
     }
   };
 
+  // 🔹 Auth check + fetch addresses
   useEffect(() => {
     loadAddresses();
   }, []);
 
-  // 🔹 GPS Autofill
+  // ======= Use GPS to auto-fill address =======
   const handleUseLocation = () => {
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by your browser");
@@ -61,15 +61,22 @@ export default function AddressPage() {
           );
 
           const address = res.data.address || {};
+
+          // ✅ Expanded street fallback
           const street =
             address.road ||
             address.residential ||
             address.quarter ||
+            address.hamlet ||
             address.locality ||
             address.suburb ||
             address.neighbourhood ||
+            address.pedestrian ||
+            address.cycleway ||
             address.path ||
             "";
+
+          // ✅ City fallback
           const city =
             address.city ||
             address.town ||
@@ -97,11 +104,19 @@ export default function AddressPage() {
     );
   };
 
-  // 🔹 Add / Update Address
+  // 🔹 Handle form submit (add or edit)
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const payload = { ...form };
+      const payload = {
+        name: form.name,
+        phone: form.phone,
+        street: form.street,
+        city: form.city,
+        state: form.state,
+        zip: form.zip,
+      };
 
       if (editId) {
         await axios.put(
@@ -111,24 +126,30 @@ export default function AddressPage() {
         );
         alert("Address updated!");
       } else {
-        await axios.post(
-          "https://sundarban-development-internship-project.onrender.com/api/address",
-          payload,
-          { withCredentials: true }
-        );
+        await axios.post("https://sundarban-development-internship-project.onrender.com/api/address", payload, {
+          withCredentials: true,
+        });
         alert("Address added!");
       }
 
+      // Reset form
       setForm({ name: "", phone: "", street: "", city: "", state: "", zip: "" });
       setEditId(null);
+
+      // Refresh list
       loadAddresses();
     } catch (err) {
       console.error("Address submit error:", err);
-      alert(err.response?.data?.error || "Failed to save address.");
+
+      if (err.response?.data?.error) {
+        alert("Error: " + err.response.data.error);
+      } else {
+        alert("Failed to save address. Check console for details.");
+      }
     }
   };
 
-  // 🔹 Edit Address
+  // 🔹 Handle edit
   const handleEdit = (address) => {
     setForm({
       name: address.name,
@@ -139,17 +160,15 @@ export default function AddressPage() {
       zip: address.zip,
     });
     setEditId(address._id);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // 🔹 Delete Address
+  // 🔹 Handle delete
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this address?")) return;
     try {
-      await axios.delete(
-        `https://sundarban-development-internship-project.onrender.com/api/address/${id}`,
-        { withCredentials: true }
-      );
+      await axios.delete(`https://sundarban-development-internship-project.onrender.com/api/address/${id}`, {
+        withCredentials: true,
+      });
       setAddresses(addresses.filter((a) => a._id !== id));
     } catch (err) {
       console.error("Delete address error:", err);
@@ -167,43 +186,25 @@ export default function AddressPage() {
     return <p className="mt-20 text-center text-red-500">{error}</p>;
 
   return (
-    <div className="max-w-4xl p-4 mx-auto">
-      {/* 🔹 Mobile Top Bar */}
-      <div className="flex items-center justify-between mb-6 md:hidden">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-2 px-3 py-2 text-sm text-white bg-green-700 rounded-lg hover:bg-green-800"
-        >
-          <FaArrowLeft /> Back
-        </button>
-        <Link
-          to="/"
-          className="flex items-center gap-2 px-3 py-2 text-sm text-white bg-green-700 rounded-lg hover:bg-green-800"
-        >
-          <FaHome /> Home
-        </Link>
-      </div>
-
-      {/* 🔹 Desktop Top Nav */}
-      <div className="justify-between hidden mb-6 md:flex">
-        <Link
-          to="/"
-          className="flex items-center gap-2 px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700"
-        >
-          <FaHome /> Home
-        </Link>
-      </div>
-
-      <h1 className="mb-6 text-2xl font-bold text-center text-green-700 sm:text-3xl">
+    <div className="max-w-4xl p-6 mx-auto">
+      <div className="justify-between hidden mb-6 md:flex ">
+              <Link
+                to="/"
+                className="flex items-center gap-2 px-4 py-2 text-white bg-green-600 rounded-lg outline-none hover:bg-green-700"
+              >
+                <FaHome /> Home
+              </Link>
+            </div>
+      <h1 className="mb-6 text-3xl font-bold text-center text-green-700">
         My Addresses
       </h1>
 
-      {/* 🔹 Address Form */}
+      {/* Address Form */}
       <form
         onSubmit={handleSubmit}
         className="p-4 mb-8 bg-white rounded-lg shadow-md"
       >
-        <h2 className="mb-4 text-lg font-semibold sm:text-xl">
+        <h2 className="mb-4 text-xl font-semibold">
           {editId ? "Edit Address" : "Add New Address"}
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -256,24 +257,24 @@ export default function AddressPage() {
             required
           />
         </div>
-        <div className="flex flex-wrap gap-2 mt-4">
+        <div className="flex gap-2 mt-4">
           <button
             type="submit"
-            className="flex-1 px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 sm:flex-none"
+            className="px-4 py-2 text-white bg-blue-600 rounded outline-none hover:bg-blue-700"
           >
             {editId ? "Update Address" : "Add Address"}
           </button>
           <button
             type="button"
             onClick={handleUseLocation}
-            className="flex-1 px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700 sm:flex-none"
+            className="px-4 py-2 text-white bg-green-600 rounded outline-none hover:bg-green-700"
           >
             Use My Location
           </button>
         </div>
       </form>
 
-      {/* 🔹 Address List */}
+      {/* Address List */}
       <div className="grid gap-4">
         {addresses.length === 0 && (
           <p className="text-center text-gray-500">
@@ -283,7 +284,7 @@ export default function AddressPage() {
         {addresses.map((addr) => (
           <div
             key={addr._id}
-            className="flex flex-col justify-between gap-3 p-4 bg-white rounded-lg shadow-md sm:flex-row sm:items-center"
+            className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md"
           >
             <div>
               <p className="font-semibold">
@@ -296,13 +297,13 @@ export default function AddressPage() {
             <div className="flex gap-2">
               <button
                 onClick={() => handleEdit(addr)}
-                className="px-3 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-600"
+                className="px-3 py-1 text-white bg-yellow-500 rounded outline-none hover:bg-yellow-600"
               >
                 Edit
               </button>
               <button
                 onClick={() => handleDelete(addr._id)}
-                className="px-3 py-1 text-white bg-red-600 rounded hover:bg-red-700"
+                className="px-3 py-1 text-white bg-red-600 rounded outline-none hover:bg-red-700"
               >
                 Delete
               </button>
@@ -310,19 +311,14 @@ export default function AddressPage() {
           </div>
         ))}
       </div>
-
-      {/* 🔹 Mobile Bottom Nav */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-green-700 shadow-inner md:hidden">
-        <div className="flex justify-around py-3">
-          <Link
-            to="/"
-            className="flex flex-col items-center text-white hover:text-green-200"
-          >
-            <FaHome size={22} />
-            <span className="text-xs">Home</span>
-          </Link>
-        </div>
-      </footer>
+          <footer className="fixed bottom-0 left-0 right-0 bg-green-700 shadow-inner md:hidden">
+              <div className="flex justify-around py-3">
+                <Link to="/" className="flex flex-col items-center text-white hover:text-green-900">
+                  <FaHome size={22} />
+                  <span className="text-xs">Home</span>
+                </Link>
+              </div>
+            </footer>
     </div>
   );
 }
