@@ -13,10 +13,10 @@ export default function AdminLogin() {
         { email, password },
         { withCredentials: true }
       );
-      setMsg("✅ Login successful");
+      setMsg("Login successful");
       window.location.href = "/admin-dashboard-page";
     } catch (err) {
-      setMsg("❌ Invalid credentials");
+      setMsg("Invalid credentials");
     }
   };
 
