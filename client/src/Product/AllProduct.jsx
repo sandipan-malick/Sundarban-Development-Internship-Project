@@ -59,7 +59,7 @@ export default function AllProduct() {
         { productId: id, quantity },
         { withCredentials: true }
       );
-      alert(`✅ Added ${quantity} item(s) to cart!`);
+      alert(`Added ${quantity} item(s) to cart!`);
     } catch (err) {
       console.error(err);
       alert("Failed to add product to cart.");
