@@ -2,10 +2,7 @@ const Cart = require("../models/Cart");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 const Address = require("../models/Address");
-
-// -------------------------
 // Add to Cart
-// -------------------------
 exports.addToCart = async (req, res) => {
   try {
     const { productId, quantity } = req.body;
@@ -55,10 +52,7 @@ exports.addToCart = async (req, res) => {
     res.status(500).json({ error: "Failed to add to cart" });
   }
 };
-
-// -------------------------
 // Get Cart
-// -------------------------
 exports.getCart = async (req, res) => {
   try {
     const userId = req.user?.userId;
@@ -86,10 +80,7 @@ exports.getCart = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch cart" });
   }
 };
-
-// -------------------------
 // Remove single item
-// -------------------------
 exports.removeItem = async (req, res) => {
   try {
     const userId = req.user?.userId;
@@ -109,10 +100,7 @@ exports.removeItem = async (req, res) => {
     res.status(500).json({ error: "Failed to remove item" });
   }
 };
-
-// -------------------------
 // Clear all cart items
-// -------------------------
 exports.clearCart = async (req, res) => {
   try {
     const userId = req.user?.userId;
@@ -125,11 +113,7 @@ exports.clearCart = async (req, res) => {
     res.status(500).json({ error: "Failed to clear cart" });
   }
 };
-
-// -------------------------
 // Confirm Order
-// -------------------------
-
 exports.confirmOrder = async (req, res) => {
   try {
     const userId = req.user?.userId;
@@ -155,7 +139,7 @@ exports.confirmOrder = async (req, res) => {
       name: item.productId.name,
       price: item.productId.price,
       quantity: item.quantity,
-      image: item.productId.image, // ✅ make sure field name matches schema
+      image: item.productId.image, 
     }));
 
     const totalAmount = orderItems.reduce(
@@ -181,22 +165,19 @@ exports.confirmOrder = async (req, res) => {
     await order.save();
     await Cart.deleteOne({ userId });
 
-    res.json({ message: "✅ Order confirmed successfully!", order });
+    res.json({ message: "Order confirmed successfully!", order });
   } catch (err) {
     console.error("Confirm order error:", err);
     res.status(500).json({ error: "Failed to confirm order" });
   }
 };
-
-// -------------------------
 // Get Product History
-// -------------------------
 exports.getProductHistory = async (req, res) => {
   try {
     const userId = req.user?.userId; 
     const orders = await Order.find({ userId })
       .sort({ createdAt: -1 })
-      .lean(); // lean for performance
+      .lean();
 
     res.status(200).json(
       orders.map((order) => ({
@@ -215,17 +196,15 @@ exports.getProductHistory = async (req, res) => {
       }))
     );
   } catch (error) {
-    console.error("Error fetching product history:", error); // ✅ fixed
+    console.error("Error fetching product history:", error);
     res.status(500).json({ message: "Failed to fetch product history" });
   }
 };
-// -------------------------
 // Get all orders (Admin)
-// -------------------------
 exports.getAllOrder = async (req, res) => {
   try {
     const orders = await Order.find()
-      .populate("userId", "username email") // populate 'username', not 'name'
+      .populate("userId", "username email")
       .sort({ createdAt: -1 })
       .lean();
 
