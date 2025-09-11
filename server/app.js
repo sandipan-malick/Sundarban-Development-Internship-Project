@@ -31,7 +31,7 @@ const app = express();
 
 // Allow origins (update when you deploy frontend)
 const allowedOrigins = [
-  "https://sundarban-development.netlify.app",  // Vite/React loc  // Production frontend URL (e.g., https://your-frontend.onrender.com)
+  "https://sundarban-development.netlify.app",
 ];
 
 app.use(
@@ -50,11 +50,11 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-// ========== API Routes ==========
+// API Routes
 app.use("/api/places", placeRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/booking", bookingRoutes);
-app.use("/api/payment", paymentRoutes);   // fixed route name (was /api/cart before)
+app.use("/api/payment", paymentRoutes); 
 app.use("/api/address", addressRoutes);
 app.use("/api/location", locationRoutes);
 app.use("/api/admin", adminRoutes);
@@ -63,7 +63,7 @@ app.use("/api/education/news", newsRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/cart", cartRoutes);
 
-// ========== Protected Routes (User) ==========
+// Protected Routes (User) 
 app.get("/", authMiddleware, (req, res) => {
   res.send("Welcome to landing page");
 });
@@ -112,8 +112,8 @@ app.get("/admin-product-dashboard", adminAuth, (req, res) => {
   res.send("Welcome to admin product dashboard");
 });
 
-// ========== Server ==========
+// Server
 const PORT = process.env.PORT || 5080;
 app.listen(PORT, () =>
-  console.log(`🚀 Server running on http://localhost:${PORT}`)
+  console.log(`Server running on http://localhost:${PORT}`)
 );
