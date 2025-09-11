@@ -33,8 +33,7 @@ export default function Cart() {
 
   // Fetch cart items & addresses
   useEffect(() => {
-    if (loading) return; // wait until auth check is done
-
+    if (loading) return; 
     const fetchData = async () => {
       try {
         const [bookingsRes, addressesRes] = await Promise.all([
@@ -87,7 +86,7 @@ export default function Cart() {
   // Checkout & Payment
   const handleCheckout = async () => {
     if (!selectedAddressId) {
-      alert("❌ Please select an address before proceeding to payment.");
+      alert("Please select an address before proceeding to payment.");
       return;
     }
 
@@ -133,7 +132,7 @@ export default function Cart() {
               paymentCompletedRef.current = true;
               (async () => {
                 await confirmBooking("AUTO_SUCCESS");
-                alert("✅ Payment auto-confirmed. Booking completed successfully!");
+                alert("Payment auto-confirmed. Booking completed successfully!");
               })();
             }
             return 0;
@@ -153,7 +152,7 @@ export default function Cart() {
 
   return (
     <div className="relative max-w-6xl min-h-screen p-6 pb-20 mx-auto">
-      {/* ====== Top Nav Links ====== */}
+      {/* Top Nav Links */}
       <div className="justify-between hidden mb-6 md:flex ">
         <Link
           to="/"
@@ -171,7 +170,7 @@ export default function Cart() {
 
       <h1 className="mb-8 text-4xl font-bold text-center text-green-700">Your Bookings</h1>
 
-      {/* ====== Select Address ====== */}
+      {/* Select Address */}
       <div className="p-4 mb-6 bg-white rounded-lg shadow-md">
   <h2 className="mb-2 text-xl font-semibold">Select Delivery Address</h2>
   {addresses.length === 0 ? (
@@ -220,7 +219,7 @@ export default function Cart() {
 
       {paymentStatus === "success" && (
         <div className="p-4 mb-4 text-center text-green-700 bg-green-100 rounded-md">
-          ✅ Payment Successful
+           Payment Successful
         </div>
       )}
 
@@ -271,7 +270,7 @@ export default function Cart() {
         </>
       )}
 
-      {/* ====== Footer with Icons ====== */}
+      {/* Footer with Icons */}
       <footer className="fixed bottom-0 left-0 right-0 bg-green-700 shadow-inner md:hidden">
         <div className="flex justify-around py-3">
           <Link to="/" className="flex flex-col items-center text-white hover:text-green-900">
