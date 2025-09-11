@@ -263,7 +263,7 @@ export default function AllPlaces() {
         )}
       </div>
 
-      {/* ✅ Footer Nav (Mobile) */}
+      {/* Footer Nav (Mobile) */}
       <footer className="fixed bottom-0 left-0 right-0 text-white bg-green-700  border-t shadow-lg md:hidden">
         <div className="flex justify-around p-2">
           {[
