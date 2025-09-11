@@ -1,4 +1,3 @@
-// src/pages/AdminOrder.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -8,10 +7,7 @@ export default function AdminOrder() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  // -----------------------------
   // Check admin authentication
-  // -----------------------------
   useEffect(() => {
     const checkAdminAuth = async () => {
       try {
@@ -19,15 +15,12 @@ export default function AdminOrder() {
           withCredentials: true,
         });
       } catch (err) {
-        navigate("/admin-login"); // Redirect if not admin
+        navigate("/admin-login");
       }
     };
     checkAdminAuth();
   }, [navigate]);
-
-  // -----------------------------
   // Fetch all orders
-  // -----------------------------
   useEffect(() => {
     const fetchOrders = async () => {
       try {
