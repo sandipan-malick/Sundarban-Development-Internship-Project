@@ -20,9 +20,9 @@ mongoose.connect(process.env.MONGO_URI)
       { email: process.env.ADMIN_EMAIL_2, password: hashed2 },
     ]);
 
-    console.log("✅ Admins seeded:");
+    console.log("Admins seeded:");
     console.log(`- ${process.env.ADMIN_EMAIL_1}`);
     console.log(`- ${process.env.ADMIN_EMAIL_2}`);
     process.exit();
   })
-  .catch(err => console.error("❌ DB Connection Error:", err));
+  .catch(err => console.error("DB Connection Error:", err));
