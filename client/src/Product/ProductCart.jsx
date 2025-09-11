@@ -75,7 +75,7 @@ export default function ProductCart() {
 
   const handleCheckout = async () => {
     if (!selectedAddressId) {
-      alert("❌ Please select an address before proceeding.");
+      alert("Please select an address before proceeding.");
       return;
     }
 
@@ -121,7 +121,7 @@ export default function ProductCart() {
               paymentCompletedRef.current = true;
               (async () => {
                 await confirmOrder("AUTO_SUCCESS");
-                alert("✅ Payment auto-confirmed. Order placed successfully!");
+                alert("Payment auto-confirmed. Order placed successfully!");
               })();
             }
             return 0;
@@ -150,8 +150,6 @@ export default function ProductCart() {
           <FaBox /> Product
         </Link>
       </div>
-
-      {/* Address Selection */}
      {/* Select Address */}
 <div className="p-4 mb-6 bg-white rounded-lg shadow-md">
   <h2 className="mb-2 text-xl font-semibold">Select Delivery Address</h2>
@@ -201,7 +199,7 @@ export default function ProductCart() {
       )}
       {paymentStatus === "success" && (
         <div className="p-4 mb-4 text-center text-green-700 bg-green-100 rounded-md">
-          ✅ Payment Successful
+          Payment Successful
         </div>
       )}
 
