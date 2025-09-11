@@ -15,12 +15,6 @@ import api from "../utils/axios";
 const texts = {
   en: {
     intro: "Sundarban Eco-tourism is dedicated to preserving nature and empowering local communities through sustainable tourism.",
-    modules: [
-      "Community Stories",
-      "Local Wildlife",
-      "Conservation Efforts",
-      "Visitor Information",
-    ],
     heroTitle: "Welcome to Sundarban Eco-tourism",
     heroSubtitle: "Experience nature, humanity, and conservation like never before",
     languageSwitch: "EN / BN",
@@ -32,12 +26,6 @@ const texts = {
   },
   bn: {
     intro: "সুন্দরবন ইকো-ট্যুরিজম প্রকৃতি সংরক্ষণ এবং টেকসই পর্যটনের মাধ্যমে স্থানীয় সম্প্রদায়কে ক্ষমতায়িত করার জন্য নিবেদিত।",
-    modules: [
-      "সম্প্রদায়ের গল্প",
-      "স্থানীয় বন্যজীবন",
-      "সংরক্ষণ প্রচেষ্টা",
-      "ভ্রমণ তথ্য",
-    ],
     heroTitle: "সুন্দরবনে ইকো-ট্যুরিজমে স্বাগতম",
     heroSubtitle: "প্রকৃতি, মানবতা এবং সংরক্ষণ উপভোগ করুন",
     languageSwitch: "BN / EN",
@@ -69,7 +57,11 @@ export default function LandingPage() {
 
   const handleLogout = async () => {
     try {
-      await api.post("https://sundarban-development-internship-project.onrender.com/api/user/logout", {}, { withCredentials: true });
+      await api.post(
+        "https://sundarban-development-internship-project.onrender.com/api/user/logout",
+        {},
+        { withCredentials: true }
+      );
       window.location.reload();
     } catch (err) {
       console.error("Logout failed:", err);
@@ -104,10 +96,18 @@ export default function LandingPage() {
 
         {/* Desktop Nav */}
         <nav className="items-center hidden space-x-4 text-lg md:flex">
-          <Link to="/" className="transition hover:text-earthy-brown">{language === "en" ? "Home" : "হোম"}</Link>
-          <Link to="/ecoTourism" className="transition hover:text-earthy-brown">{language === "en" ? "Explore" : "এক্সপ্লোর"}</Link>
-          <Link to="/education" className="transition hover:text-earthy-brown">{language === "en" ? "Community" : "সম্প্রদায়"}</Link>
-          <Link to="/all-data" className="transition hover:text-earthy-brown">{language === "en" ? "Activities" : "কার্যক্রম"}</Link>
+          <Link to="/" className="transition hover:text-earthy-brown">
+            {language === "en" ? "Home" : "হোম"}
+          </Link>
+          <Link to="/ecoTourism" className="transition hover:text-earthy-brown">
+            {language === "en" ? "Explore" : "এক্সপ্লোর"}
+          </Link>
+          <Link to="/education" className="transition hover:text-earthy-brown">
+            {language === "en" ? "Community" : "সম্প্রদায়"}
+          </Link>
+          <Link to="/all-data" className="transition hover:text-earthy-brown">
+            {language === "en" ? "Activities" : "কার্যক্রম"}
+          </Link>
 
           {/* Contact Button */}
           <button
@@ -118,7 +118,10 @@ export default function LandingPage() {
           </button>
 
           {/* Address Button */}
-          <Link to="/address" className="flex items-center gap-1 px-3 py-1 text-white bg-blue-600 rounded-lg hover:bg-blue-700">
+          <Link
+            to="/address"
+            className="flex items-center gap-1 px-3 py-1 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+          >
             <FaMapMarkerAlt /> {t.addressBtn}
           </Link>
 
@@ -149,7 +152,9 @@ export default function LandingPage() {
           className="absolute inset-0 object-cover w-full h-full rounded-xl"
         />
         <div className="relative z-10 flex flex-col items-center gap-4">
-          <h1 className="font-serif text-3xl font-bold text-white sm:text-5xl">{t.heroTitle}</h1>
+          <h1 className="font-serif text-3xl font-bold text-white sm:text-5xl">
+            {t.heroTitle}
+          </h1>
           <p className="max-w-xl text-lg text-white sm:text-xl">{t.heroSubtitle}</p>
         </div>
       </section>
@@ -157,27 +162,11 @@ export default function LandingPage() {
       {/* About */}
       <section className="max-w-4xl p-8 mx-auto text-center text-forest-green sm:p-12">
         <h2 className="mb-6 font-serif text-2xl font-semibold sm:text-3xl">
-          {language === "en" ? "About Sundarban Eco-tourism" : "সুন্দরবন ইকো-ট্যুরিজম সম্পর্কে"}
+          {language === "en"
+            ? "About Sundarban Eco-tourism"
+            : "সুন্দরবন ইকো-ট্যুরিজম সম্পর্কে"}
         </h2>
         <p className="mb-4 text-base sm:text-lg">{t.intro}</p>
-      </section>
-
-      {/* Modules */}
-      <section className="grid max-w-6xl grid-cols-1 gap-8 p-8 mx-auto text-center sm:grid-cols-2 md:grid-cols-3">
-        {t.modules.map((module) => (
-          <p
-            key={module}
-            to={"/" + module.toLowerCase().replace(/\s+/g, "-")}
-            className="p-6 transition bg-white rounded shadow-lg cursor-pointer hover:shadow-2xl text-forest-green hover:scale-105"
-          >
-            <h3 className="mb-2 text-xl font-semibold">{module}</h3>
-            <p className="text-sm">
-              {language === "en"
-                ? `Discover more about ${module.toLowerCase()}.`
-                : `আরও জানুন ${module.toLowerCase()}.`}
-            </p>
-          </p>
-        ))}
       </section>
 
       {/* Contact Info Reveal */}
@@ -201,19 +190,44 @@ export default function LandingPage() {
           onClick={() => setLanguage(language === "en" ? "bn" : "en")}
           className="mt-2 underline transition hover:text-forest-green"
         >
-          {language === "en" ? "Language: English / বাংলা" : "ভাষা: বাংলা / English"}
+          {language === "en"
+            ? "Language: English / বাংলা"
+            : "ভাষা: বাংলা / English"}
         </button>
-        <div className="mt-4 text-sm">&copy; 2025 Sundarban Eco-tourism Community</div>
+        <div className="mt-4 text-sm">
+          &copy; 2025 Sundarban Eco-tourism Community
+        </div>
       </footer>
 
       {/* Mobile Bottom Nav */}
       <nav className="fixed bottom-0 left-0 right-0 flex justify-around p-2 shadow-inner bg-forest-green text-cream md:hidden">
-        <Link to="/" className="flex flex-col items-center text-sm"><FaHome className="mb-1 text-lg" />{language === "en" ? "Home" : "হোম"}</Link>
-        <Link to="/ecoTourism" className="flex flex-col items-center text-sm"><FaCompass className="mb-1 text-lg" />{language === "en" ? "Explore" : "এক্সপ্লোর"}</Link>
-        <Link to="/education" className="flex flex-col items-center text-sm"><FaUsers className="mb-1 text-lg" />{language === "en" ? "Community" : "সম্প্রদায়"}</Link>
-        <Link to="/all-data" className="flex flex-col items-center text-sm"><FaListUl className="mb-1 text-lg" />{language === "en" ? "Activities" : "কার্যক্রম"}</Link>
-        <Link to="/address" className="flex flex-col items-center text-sm"><FaAddressCard className="mb-1 text-lg" />{language === "en" ? "Address" : "ঠিকানা"}</Link>
-        <button onClick={() => setShowContact(!showContact)} className="flex flex-col items-center text-sm"><FaEnvelope className="mb-1 text-lg" />{language === "en" ? "Contact" : "যোগাযোগ"}</button>
+        <Link to="/" className="flex flex-col items-center text-sm">
+          <FaHome className="mb-1 text-lg" />
+          {language === "en" ? "Home" : "হোম"}
+        </Link>
+        <Link to="/ecoTourism" className="flex flex-col items-center text-sm">
+          <FaCompass className="mb-1 text-lg" />
+          {language === "en" ? "Explore" : "এক্সপ্লোর"}
+        </Link>
+        <Link to="/education" className="flex flex-col items-center text-sm">
+          <FaUsers className="mb-1 text-lg" />
+          {language === "en" ? "Community" : "সম্প্রদায়"}
+        </Link>
+        <Link to="/all-data" className="flex flex-col items-center text-sm">
+          <FaListUl className="mb-1 text-lg" />
+          {language === "en" ? "Activities" : "কার্যক্রম"}
+        </Link>
+        <Link to="/address" className="flex flex-col items-center text-sm">
+          <FaAddressCard className="mb-1 text-lg" />
+          {language === "en" ? "Address" : "ঠিকানা"}
+        </Link>
+        <button
+          onClick={() => setShowContact(!showContact)}
+          className="flex flex-col items-center text-sm"
+        >
+          <FaEnvelope className="mb-1 text-lg" />
+          {language === "en" ? "Contact" : "যোগাযোগ"}
+        </button>
       </nav>
     </div>
   );
