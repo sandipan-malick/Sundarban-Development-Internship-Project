@@ -4,7 +4,7 @@ const articleSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
     content: { type: String, required: true },
-    lang: { type: String, enum: ["en", "bn"], default: "en" }, // English / Bengali
+    lang: { type: String, enum: ["en", "bn"], default: "en" },
     topic: { type: String, enum: ["wildlife", "mangrove", "eco-tourism", "general"], default: "general" },
     coverImage: { type: String },
     isPublished: { type: Boolean, default: true },
