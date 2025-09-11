@@ -7,12 +7,12 @@ const {
   deleteProduct,
 } = require("../controllers/productController");
 const authMiddleware = require("../middleware/authMiddleware");
-const adminAuth = require("../middleware/adminAuth"); // ✅ fixed spelling
+const adminAuth = require("../middleware/adminAuth");
 
-// ✅ Public - Get all products (no auth required)
+// Public - Get all products (no auth required)
 router.get("/", listProducts);
 
-// ✅ Admin - Manage products (protected)
+// Admin - Manage products (protected)
 router.post("/", adminAuth, createProduct);
 router.put("/:id", adminAuth, updateProduct);
 router.delete("/:id", adminAuth, deleteProduct);
