@@ -16,7 +16,6 @@ const texts = {
   en: {
     intro: "Sundarban Eco-tourism is dedicated to preserving nature and empowering local communities through sustainable tourism.",
     modules: [
-      "Eco Tourism",
       "Community Stories",
       "Local Wildlife",
       "Conservation Efforts",
@@ -24,8 +23,6 @@ const texts = {
     ],
     heroTitle: "Welcome to Sundarban Eco-tourism",
     heroSubtitle: "Experience nature, humanity, and conservation like never before",
-    exploreBtn: "Explore Tours",
-    joinBtn: "Join the Community",
     languageSwitch: "EN / BN",
     footerLang: "Language: English / বাংলা",
     addressBtn: "My Addresses",
@@ -36,7 +33,6 @@ const texts = {
   bn: {
     intro: "সুন্দরবন ইকো-ট্যুরিজম প্রকৃতি সংরক্ষণ এবং টেকসই পর্যটনের মাধ্যমে স্থানীয় সম্প্রদায়কে ক্ষমতায়িত করার জন্য নিবেদিত।",
     modules: [
-      "ইকো-ট্যুরিজম প্যাকেজসমূহ",
       "সম্প্রদায়ের গল্প",
       "স্থানীয় বন্যজীবন",
       "সংরক্ষণ প্রচেষ্টা",
@@ -44,8 +40,6 @@ const texts = {
     ],
     heroTitle: "সুন্দরবনে ইকো-ট্যুরিজমে স্বাগতম",
     heroSubtitle: "প্রকৃতি, মানবতা এবং সংরক্ষণ উপভোগ করুন",
-    exploreBtn: "পর্যটন অনুসন্ধান করুন",
-    joinBtn: "সম্প্রদায়ে যোগ দিন",
     languageSwitch: "BN / EN",
     footerLang: "ভাষা: বাংলা / English",
     addressBtn: "আমার ঠিকানাসমূহ",
@@ -157,14 +151,6 @@ export default function LandingPage() {
         <div className="relative z-10 flex flex-col items-center gap-4">
           <h1 className="font-serif text-3xl font-bold text-white sm:text-5xl">{t.heroTitle}</h1>
           <p className="max-w-xl text-lg text-white sm:text-xl">{t.heroSubtitle}</p>
-          <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
-            <button className="px-6 py-3 font-semibold transition rounded shadow-lg text-cream bg-earthy-brown hover:bg-forest-green hover:scale-105">
-              {t.exploreBtn}
-            </button>
-            <button className="px-6 py-3 font-semibold transition rounded shadow-lg text-cream bg-forest-green hover:bg-earthy-brown hover:scale-105">
-              {t.joinBtn}
-            </button>
-          </div>
         </div>
       </section>
 
