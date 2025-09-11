@@ -29,7 +29,6 @@ function AdminProductDashboard() {
     };
     checkAdminAuth();
   }, [navigate]);
-  // Fetch all products
   useEffect(() => {
     fetchProducts();
   }, []);
