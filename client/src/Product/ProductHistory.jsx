@@ -9,7 +9,7 @@ export default function ProductHistory() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // 🔹 Protected Route: check if user is logged in
+  //  Protected Route: check if user is logged in
   const checkAuth = async () => {
     try {
       await axios.get("https://sundarban-development-internship-project.onrender.com/product-history", {
