@@ -27,10 +27,10 @@ export default function DetailedSundarbansMap() {
       await axios.get("https://sundarban-development-internship-project.onrender.com/ecoTourism", {
         withCredentials: true,
       });
-      setLoading(false); // Authenticated, allow access
+      setLoading(false); 
     } catch (err) {
       console.error("User not authenticated:", err);
-      navigate("/login"); // redirect to login if not authenticated
+      navigate("/login"); 
     }
   };
 
