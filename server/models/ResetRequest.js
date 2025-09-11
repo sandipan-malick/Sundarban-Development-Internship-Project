@@ -1,4 +1,3 @@
-// models/ResetRequest.js
 const mongoose = require("mongoose");
 
 const resetRequestSchema = new mongoose.Schema({
