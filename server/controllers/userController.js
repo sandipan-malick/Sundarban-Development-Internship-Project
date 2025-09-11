@@ -1,5 +1,3 @@
-// controllers/authController.js
-
 const User = require("../models/User");
 const Otp = require("../models/Otp");
 const ResetRequest = require("../models/ResetRequest");
@@ -7,21 +5,7 @@ const sendEmail = require("../utils/sendMail");
 const jwt = require("jsonwebtoken");
 const otpGenerator = require("otp-generator");
 const bcrypt = require("bcryptjs");
-
-/**
- * ===============================
- *  AUTH CONTROLLER
- * ===============================
- * Handles: 
- * - Check email availability
- * - Register with OTP
- * - Login with JWT
- * - Forgot password with OTP
- * - Reset password
- * ===============================
- */
-
-//  1. Check if email is available (for registration)
+//   Check if email is available (for registration)
 exports.checkEmail = async (req, res) => {
   const { email } = req.body;
   try {
@@ -37,7 +21,7 @@ exports.checkEmail = async (req, res) => {
   }
 };
 
-//  2. Send OTP (for registration or forgot password)
+//   Send OTP (for registration or forgot password)
 exports.sendOtp = async (req, res) => {
   const { email } = req.body;
   try {
@@ -63,7 +47,7 @@ exports.sendOtp = async (req, res) => {
       specialChars: false,
     });
 
-    const otpExpires = new Date(Date.now() + 5 * 60 * 1000); // 5 mins
+    const otpExpires = new Date(Date.now() + 5 * 60 * 1000);
 
     if (existingOtp) {
       existingOtp.otp = otp;
@@ -112,7 +96,7 @@ exports.verifyOTP = async (req, res) => {
     // Send success email
     sendEmail(
       email,
-      "✅ Registration Successful",
+      "Registration Successful",
       `Hi ${username}, your registration was successful!
       Sundarbon Development Team`
     ).catch((e) => console.error("Registration email error:", e));
@@ -123,7 +107,7 @@ exports.verifyOTP = async (req, res) => {
     res.status(500).json({ message: "Server error during verification" });
   }
 };
-//  8. Google Register
+//  Google Register
 
 exports.googleRegister = async (req, res) => {
   try {
@@ -143,11 +127,11 @@ exports.googleRegister = async (req, res) => {
     user = await User.create({
       username: username || email.split("@")[0],
       email,
-      password: null, // no password since it's Google
+      password: null,
     });
     sendEmail(
       email,
-      "✅ Registration Successful",
+      "Registration Successful",
       `Hi ${username}, your registration was successful!
       Sundarbon Development Team`
     ).catch((e) => console.error("Registration email error:", e));
@@ -165,7 +149,7 @@ exports.googleRegister = async (req, res) => {
     res.status(500).json({ error: "Server error during Google register" });
   }
 };
-//  4. Login User
+//  Login User
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -188,7 +172,7 @@ exports.login = async (req, res) => {
     // Optional: send login success email
     sendEmail(
       email,
-      "🎉 Login Successful",
+      "Login Successful",
       `Hi ${user.username},\n\nYour login was successful!\n\nThanks for joining us.\n\n- Sundarbon Development Team`
     ).catch((err) => console.error("Email error:", err));
 
@@ -244,10 +228,10 @@ exports.googleLogin = async (req, res) => {
       expiresIn: "1d",
     });
 
-    // ✅ Send login notification email
+    // Send login notification email
     sendEmail(
       email,
-      "🎉 Google Login Successful",
+      "Google Login Successful",
       `Hi ${user.username || "User"},\n\nYou have successfully logged in using Google.\n\nIf this wasn't you, please secure your account immediately.\n\n- Sundarbon Development Team`
     ).catch((err) => console.error("Google login email error:", err));
 
@@ -362,16 +346,15 @@ exports.resetPassword = async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: "User not found" });
-
-    // ❌ Remove manual bcrypt.hash (avoid double hashing)
-    user.password = newPassword; // Schema will hash automatically
+    
+    user.password = newPassword;
     await user.save();
 
     await ResetRequest.deleteOne({ email });
 
     sendEmail(
       email,
-      "✅ Password Changed",
+      "Password Changed",
       `Hi, your password was changed successfully.`
     ).catch((e) => console.error("Password change email error:", e));
 
@@ -381,15 +364,14 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-// Logout
 // controllers/authController.js
 exports.logout = (req, res) => {
   try {
     // Clear JWT/auth cookie
     res.clearCookie("token", {
       httpOnly: true,
-      secure: true,     // true if using https (Render, Vercel, etc.)
-      sameSite: "none", // must match what you set at login
+      secure: true,  
+      sameSite: "none", 
     });
 
     // If you are using express-session, clear session cookie too
