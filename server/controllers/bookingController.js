@@ -1,13 +1,10 @@
 const Booking = require("../models/Booking");
 const Place = require("../models/Place");
 const BookingConfirmation = require("../models/BookingConfirmation");
-
-// ===========================
 // Create a new booking
-// ===========================
 exports.createBooking = async (req, res) => {
   try {
-    const { placeId, quantity, bookingDate } = req.body; // <-- get bookingDate from client
+    const { placeId, quantity, bookingDate } = req.body;
     const userId = req.user?.userId;
 
     if (!placeId || !quantity || !bookingDate)
@@ -41,10 +38,7 @@ exports.createBooking = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
-
-// ===========================
 // Get bookings for logged-in user
-// ===========================
 exports.getBookings = async (req, res) => {
   try {
     const userId = req.user?.userId;
@@ -57,10 +51,7 @@ exports.getBookings = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
-
-// ===========================
 // Cancel a booking
-// ===========================
 exports.deleteBooking = async (req, res) => {
   try {
     const bookingId = req.params.id;
@@ -83,10 +74,7 @@ exports.deleteBooking = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
-
-// ===========================
 // Confirm booking after payment
-// ===========================
 exports.confirmBooking = async (req, res) => {
   try {
     const userId = req.user?.userId;
@@ -112,7 +100,7 @@ exports.confirmBooking = async (req, res) => {
     if (existingConfirmation) {
       await Booking.deleteMany({ userId });
       return res.status(200).json({
-        message: "✅ Booking already confirmed previously",
+        message: "Booking already confirmed previously",
         confirmation: existingConfirmation,
       });
     }
@@ -153,7 +141,7 @@ exports.confirmBooking = async (req, res) => {
     await Booking.deleteMany({ userId });
 
     res.json({
-      message: "✅ Booking confirmed successfully with address!",
+      message: "Booking confirmed successfully with address!",
       confirmation,
     });
   } catch (err) {
@@ -161,10 +149,7 @@ exports.confirmBooking = async (req, res) => {
     res.status(500).json({ error: "Failed to confirm booking" });
   }
 };
-
-// ===========================
 // Clear all cart data manually
-// ===========================
 exports.clearCart = async (req, res) => {
   try {
     const userId = req.user?.userId;
@@ -178,9 +163,7 @@ exports.clearCart = async (req, res) => {
     res.status(500).json({ error: "Failed to clear cart" });
   }
 };
-// ===========================
 // Get booking history for logged-in user
-// ===========================
 exports.getBookingHistory = async (req, res) => {
   try {
     const userId = req.user?.userId;
