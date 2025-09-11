@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const ForgetOtpVerify = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const userData = location.state?.userData || {}; // email from ForgetPassword
+  const userData = location.state?.userData || {}; 
 
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [error, setError] = useState("");
