@@ -47,7 +47,7 @@ export default function AdminEducation() {
   );
 }
 
-/* ---------- Common Field Components ---------- */
+// Common Field Components 
 function Field({ label, ...props }) {
   return (
     <label className="block mb-3">
@@ -66,7 +66,7 @@ function Textarea({ label, ...props }) {
   );
 }
 
-/* ------------------ Articles ------------------ */
+// Articles
 function ArticlesAdmin() {
   const [list, setList] = useState([]);
   const [form, setForm] = useState({
@@ -323,7 +323,7 @@ function FAQsAdmin() {
   );
 }
 
-/* ------------------ Quiz ------------------ */
+// Quiz
 function QuizAdmin() {
   const blank = {
     question: "",
@@ -344,7 +344,6 @@ function QuizAdmin() {
 
   useEffect(() => {
     load();
-    // eslint-disable-next-line
   }, []);
 
   const addOption = () =>
@@ -499,7 +498,7 @@ function QuizAdmin() {
   );
 }
 
-/* ------------------ Attempts ------------------ */
+// Attempts
 function AttemptsAdmin() {
   const [list, setList] = useState([]);
 
@@ -540,7 +539,7 @@ function AttemptsAdmin() {
   );
 }
 
-/* ------------------ News ------------------ */
+// News
 function NewsAdmin() {
   const [list, setList] = useState([]);
   const [form, setForm] = useState({
@@ -560,7 +559,6 @@ function NewsAdmin() {
 
   useEffect(() => {
     load();
-    // eslint-disable-next-line
   }, []);
 
   const create = async () => {
