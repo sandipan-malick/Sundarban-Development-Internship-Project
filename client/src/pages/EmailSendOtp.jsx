@@ -1,4 +1,3 @@
-// src/pages/EmailSendOtp.jsx
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -6,11 +5,11 @@ import axios from 'axios';
 function EmailSendOtp() {
   const navigate = useNavigate();
   const location = useLocation();
-  const userData = location.state; // { username, email, password }
+  const userData = location.state; 
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const hasSentOtp = useRef(false); // Prevent multiple API calls
+  const hasSentOtp = useRef(false); 
 
   useEffect(() => {
     const sendOtp = async () => {
@@ -32,10 +31,10 @@ function EmailSendOtp() {
     };
 
     if (userData?.email && !hasSentOtp.current) {
-      hasSentOtp.current = true; // Mark as sent
+      hasSentOtp.current = true; 
       sendOtp();
     } else if (!userData?.email) {
-      navigate('/registerPage'); // Redirect if no email
+      navigate('/registerPage');
     }
   }, [userData, navigate]);
 
