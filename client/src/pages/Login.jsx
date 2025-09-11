@@ -1,4 +1,3 @@
-// src/pages/Login.jsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -45,12 +44,12 @@ const handleGoogleLogin = async () => {
         email: googleUser.email,
         username: googleUser.displayName || googleUser.email.split("@")[0],
       },
-      { withCredentials: true } // ✅ to save cookie (token)
+      { withCredentials: true }
     );
 
     if (res.status === 200) {
       alert("Google login successful!");
-      navigate("/"); // or dashboard
+      navigate("/");
     }
   } catch (err) {
     console.error("Google login error:", err);
@@ -60,7 +59,7 @@ const handleGoogleLogin = async () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* 👇 Top Banner */}
+      {/* Top Banner */}
       <div className="w-full py-6 text-center text-white bg-gradient-to-r bg-forest-green">
         <h1 className="mb-2 text-3xl font-bold">🌿 Welcome Back to Sundarban Tours</h1>
         <p className="text-lg">Login to continue your journey through the mangroves.</p>
