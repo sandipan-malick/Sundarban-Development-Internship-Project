@@ -12,10 +12,10 @@ export default function AdminBooking() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 1. Check admin authentication
+        //  Check admin authentication
         await axios.get("https://sundarban-development-internship-project.onrender.com/admin-booking", { withCredentials: true });
 
-        // 2. Fetch admin data
+        //  Fetch admin data
         const [bRes, cRes, aRes] = await Promise.all([
           axios.get("https://sundarban-development-internship-project.onrender.com/api/admin/bookings", { withCredentials: true }),
           axios.get("https://sundarban-development-internship-project.onrender.com/api/admin/confirmed", { withCredentials: true }),
@@ -26,7 +26,7 @@ export default function AdminBooking() {
         setConfirmed(cRes.data);
         setAddresses(aRes.data);
       } catch (err) {
-        console.error("❌ Admin auth/data fetch error:", err);
+        console.error("Admin auth/data fetch error:", err);
         navigate("/admin-login");
       } finally {
         setLoading(false);
