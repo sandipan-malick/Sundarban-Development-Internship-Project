@@ -1,4 +1,3 @@
-// src/pages/OtpVerify.jsx
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
@@ -36,14 +35,14 @@ function OtpVerify() {
 
   // Handle OTP input
   const handleChange = (e, index) => {
-    const value = e.target.value.replace(/[^0-9]/g, ""); // Only digits
+    const value = e.target.value.replace(/[^0-9]/g, "");
     if (value.length <= 1) {
       const newOtp = [...otp];
       newOtp[index] = value;
       setOtp(newOtp);
 
       if (value && index < otp.length - 1) {
-        inputRefs.current[index + 1].focus(); // Auto move to next
+        inputRefs.current[index + 1].focus(); 
       }
     }
   };
