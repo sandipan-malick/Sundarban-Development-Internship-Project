@@ -1,7 +1,7 @@
 // src/pages/AddressPage.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "../utils/axios"; // ✅ use central axios instance
+import axios from "../utils/axios"; 
 import { FaHome } from "react-icons/fa";
 
 export default function AddressPage() {
@@ -20,7 +20,7 @@ export default function AddressPage() {
   const [editId, setEditId] = useState(null);
   const navigate = useNavigate();
 
-  // 🔹 Fetch addresses from backend
+  //  Fetch addresses from backend
   const loadAddresses = async () => {
     try {
       const res = await axios.get("/api/address");
@@ -37,7 +37,7 @@ export default function AddressPage() {
     }
   };
 
-  // 🔹 Auth check + fetch addresses
+  //  Auth check + fetch addresses
   useEffect(() => {
     loadAddresses();
   }, []);
@@ -100,7 +100,7 @@ export default function AddressPage() {
     );
   };
 
-  // 🔹 Handle form submit (add or edit)
+  //  Handle form submit (add or edit)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -139,7 +139,7 @@ export default function AddressPage() {
     }
   };
 
-  // 🔹 Handle edit
+  //  Handle edit
   const handleEdit = (address) => {
     setForm({
       name: address.name,
@@ -152,7 +152,7 @@ export default function AddressPage() {
     setEditId(address._id);
   };
 
-  // 🔹 Handle delete
+  //  Handle delete
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this address?")) return;
     try {
