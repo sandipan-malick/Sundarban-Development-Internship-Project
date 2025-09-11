@@ -5,12 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminDashboardPage() {
   const [admin, setAdmin] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(false); // Mobile menu toggle
+  const [menuOpen, setMenuOpen] = useState(false); 
   const navigate = useNavigate();
-
-  // -----------------------------
   // Check if admin is logged in
-  // -----------------------------
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -24,10 +21,7 @@ export default function AdminDashboardPage() {
     };
     checkAuth();
   }, [navigate]);
-
-  // -----------------------------
   // Logout handler
-  // -----------------------------
   const handleLogout = async () => {
     try {
       await axios.post(
