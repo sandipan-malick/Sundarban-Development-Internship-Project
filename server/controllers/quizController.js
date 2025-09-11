@@ -1,9 +1,6 @@
 const QuizQuestion = require("../models/QuizQuestion");
 const QuizAttempt = require("../models/QuizAttempt");
-
-// ===========================
 // Public: fetch active quiz questions
-// ===========================
 exports.getQuiz = async (req, res) => {
   try {
     const { lang = "en", topic } = req.query;
@@ -21,10 +18,7 @@ exports.getQuiz = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch quiz" });
   }
 };
-
-// ===========================
 // Public: submit quiz attempt
-// ===========================
 exports.submitAttempt = async (req, res) => {
   try {
     const userId = req.user?.userId;
@@ -70,12 +64,7 @@ exports.submitAttempt = async (req, res) => {
     res.status(400).json({ error: "Failed to submit attempt" });
   }
 };
-
-// Other admin CRUD methods unchanged...
-
-// ===========================
 // Admin: CRUD questions
-// ===========================
 exports.createQuestion = async (req, res) => {
   try {
     const {
@@ -133,10 +122,7 @@ exports.deleteQuestion = async (req, res) => {
     res.status(400).json({ error: "Failed to delete question" });
   }
 };
-
-// ===========================
 // Admin: list attempts / stats
-// ===========================
 exports.listAttempts = async (req, res) => {
   try {
     const { userId, topic, lang } = req.query;
