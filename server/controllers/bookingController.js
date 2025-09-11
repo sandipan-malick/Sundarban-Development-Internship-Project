@@ -169,7 +169,6 @@ exports.getBookingHistory = async (req, res) => {
     const userId = req.user?.userId;
     if (!userId) return res.status(401).json({ error: "Unauthorized" });
 
-    // Fetch all confirmed bookings
     const history = await BookingConfirmation.find({ userId }).sort({ createdAt: -1 });
 
     res.json(history);
