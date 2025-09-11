@@ -13,7 +13,7 @@ const bookingConfirmationSchema = new mongoose.Schema(
         placeDescription: String,
         placeRating: Number,
         bookingTime: { type: Date, default: Date.now },
-        bookingDate: { type: Date, required: true }, // <-- Added field
+        bookingDate: { type: Date, required: true },
       },
     ],
     paymentId: { type: String, required: true },
