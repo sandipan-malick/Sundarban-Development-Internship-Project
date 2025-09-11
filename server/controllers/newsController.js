@@ -1,8 +1,5 @@
 const News = require("../models/News");
-
-// ===========================
 // Public: fetch published news
-// ===========================
 exports.listNews = async (req, res) => {
   try {
     const { lang, topic, emergencyOnly } = req.query;
@@ -19,10 +16,7 @@ exports.listNews = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch news" });
   }
 };
-
-// ===========================
 // Admin: create news
-// ===========================
 exports.createNews = async (req, res) => {
   try {
     const { title, content, isEmergency = false, source, lang = "en", topic = "general", isPublished = true } = req.body;
@@ -47,10 +41,7 @@ exports.createNews = async (req, res) => {
     res.status(400).json({ error: "Failed to create news" });
   }
 };
-
-// ===========================
 // Admin: update news
-// ===========================
 exports.updateNews = async (req, res) => {
   try {
     const updated = await News.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -61,10 +52,7 @@ exports.updateNews = async (req, res) => {
     res.status(400).json({ error: "Failed to update news" });
   }
 };
-
-// ===========================
 // Admin: delete news
-// ===========================
 exports.deleteNews = async (req, res) => {
   try {
     const deleted = await News.findByIdAndDelete(req.params.id);
