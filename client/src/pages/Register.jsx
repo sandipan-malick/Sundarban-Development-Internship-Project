@@ -57,7 +57,7 @@ function Register() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* 👇 Top Banner (Always visible at the top) */}
+      {/* Top Banner (Always visible at the top) */}
       <div className="w-full py-6 text-center text-white bg-gradient-to-r bg-forest-green">
         <h1 className="mb-2 text-3xl font-bold">🌿 Welcome to Sundarban Tours</h1>
         <p className="text-lg">
