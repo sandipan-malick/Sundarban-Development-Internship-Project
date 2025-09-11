@@ -7,15 +7,13 @@ const adminAuth = require("../middleware/adminAuth");
 
 const router = express.Router();
 
-// ---------- Public Routes (No auth for reading) ----------
+// No auth for reading
 router.get("/articles", article.listArticles);
 router.get("/faqs", faq.listFAQs);
 router.get("/quiz", quiz.getQuiz);
 
-// ---------- User Routes (Auth required) ----------
+// User Route Auth required
 router.post("/quiz/attempt", authMiddleware, quiz.submitAttempt);
-
-// ---------- Admin Routes (Admin auth required) ----------
 // Articles
 router.post("/admin/articles", adminAuth, article.createArticle);
 router.put("/admin/articles/:id", adminAuth, article.updateArticle);
