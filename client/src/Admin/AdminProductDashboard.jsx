@@ -1,11 +1,10 @@
-// src/pages/AdminProductDashboard.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AdminProductDashboard() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState("products"); // future tabs if needed
+  const [tab, setTab] = useState("products"); 
   const [products, setProducts] = useState([]);
   const [form, setForm] = useState({
     name: "",
@@ -16,10 +15,7 @@ function AdminProductDashboard() {
     rating: "",
     stock: "",
   });
-
-  // -----------------------------
   // Check admin authentication
-  // -----------------------------
   useEffect(() => {
     const checkAdminAuth = async () => {
       try {
@@ -33,10 +29,7 @@ function AdminProductDashboard() {
     };
     checkAdminAuth();
   }, [navigate]);
-
-  // -----------------------------
   // Fetch all products
-  // -----------------------------
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -52,10 +45,7 @@ function AdminProductDashboard() {
       console.error("Error fetching products:", err);
     }
   };
-
-  // -----------------------------
   // Add new product
-  // -----------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -83,10 +73,7 @@ function AdminProductDashboard() {
       alert(err.response?.data?.error || "Error adding product");
     }
   };
-
-  // -----------------------------
   // Delete a product
-  // -----------------------------
   const handleDelete = async (id) => {
     try {
       await axios.delete(
