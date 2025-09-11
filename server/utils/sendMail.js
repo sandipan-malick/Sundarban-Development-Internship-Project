@@ -10,7 +10,7 @@ const sendEmail = async (to, subject, text) => {
   });
 
   const mailOptions = {
-    from: `"ABC App" <${process.env.EMAIL_USER}>`,
+    from: `"Sundarban Development Team" <${process.env.EMAIL_USER}>`,
     to,
     subject,
     text,
@@ -19,10 +19,10 @@ const sendEmail = async (to, subject, text) => {
   // Add a try-catch for safer error handling
   try {
     await transporter.sendMail(mailOptions);
-    console.log(`✅ Email sent to ${to}`);
+    console.log(`Email sent to ${to}`);
   } catch (error) {
-    console.error(`❌ Failed to send email to ${to}`, error);
-    throw error; // Let the calling function handle it
+    console.error(`Failed to send email to ${to}`, error);
+    throw error;
   }
 };
 
