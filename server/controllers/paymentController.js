@@ -11,7 +11,7 @@ exports.getPayment = async (req, res) => {
   const { amount } = req.body;
   try {
     const order = await razorpay.orders.create({
-      amount: amount * 100, // convert rupees → paise
+      amount: amount * 100,
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
     });
@@ -32,7 +32,7 @@ exports.verifyPayment = async (req, res) => {
     const generatedSignature = hmac.digest("hex");
 
     if (generatedSignature === razorpay_signature) {
-      // ✅ Payment verified
+  // Payment verified
       return res.json({ success: true, message: "Payment verified successfully" });
     } else {
       return res.status(400).json({ success: false, message: "Payment verification failed" });
