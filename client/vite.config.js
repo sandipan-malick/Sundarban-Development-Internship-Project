@@ -5,19 +5,19 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    include: ['jwt-decode'], // pre-bundle jwt-decode
+    include: ['jwt-decode'], 
   },
-  base: '/', // important for Netlify deployment
+  base: '/', 
   server: {
     proxy: {
       '/api': {
-        target: 'https://sundarban-development-internship-project.onrender.com', // your deployed backend
+        target: 'https://sundarban-development-internship-project.onrender.com', 
         changeOrigin: true,
         secure: false,
       },
     },
   },
   build: {
-    outDir: 'dist', // production build output
+    outDir: 'dist',
   },
 });
