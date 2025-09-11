@@ -1,4 +1,3 @@
-// src/pages/ResetPassword.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -26,11 +25,11 @@ function ResetPassword() {
     setMessage("");
 
     if (!newPassword.trim()) {
-      return setError("❌ New password is required.");
+      return setError("New password is required.");
     }
 
     if (newPassword.length < 6) {
-      return setError("❌ Password must be at least 6 characters.");
+      return setError("Password must be at least 6 characters.");
     }
 
     setLoading(true);
