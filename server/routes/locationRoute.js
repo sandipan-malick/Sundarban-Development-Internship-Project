@@ -21,7 +21,7 @@ router.get("/reverse", authMiddleware, async (req, res) => {
       },
       headers: {
         "Accept": "application/json",
-        "User-Agent": "MyApp/1.0 (your_email@example.com)", // ✅ safe on server-side
+        "User-Agent": "MyApp/1.0 (your_email@example.com)", 
       },
     });
 
