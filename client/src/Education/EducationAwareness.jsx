@@ -1,4 +1,3 @@
-// React component: EducationAwareness.jsx (React + TailwindCSS + Protected Route)
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
@@ -20,7 +19,7 @@ export default function EducationAwareness() {
     { id: "faq", label: "FAQ", icon: HelpCircle },
   ];
 
-  // 🔹 Protected route: check if user is logged in
+  //  Protected route: check if user is logged in
   useEffect(() => {
     const verifyAuth = async () => {
       try {
@@ -114,7 +113,7 @@ export default function EducationAwareness() {
   );
 }
 
-// 🔹 Card Component
+//  Card Component
 function Card({ children, className = "" }) {
   return (
     <div
@@ -125,7 +124,7 @@ function Card({ children, className = "" }) {
   );
 }
 
-// 🔹 Knowledge Base
+//  Knowledge Base
 function KnowledgeBase() {
   const [articles, setArticles] = useState([]);
 
@@ -157,7 +156,7 @@ function KnowledgeBase() {
   );
 }
 
-// 🔹 Community News (Emergency Updates)
+//  Community News (Emergency Updates)
 function CommunityNews() {
   const [news, setNews] = useState([]);
 
@@ -212,7 +211,7 @@ function CommunityNews() {
   );
 }
 
-// 🔹 FAQ
+//  FAQ
 function FAQ() {
   const [faqs, setFaqs] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
@@ -341,7 +340,7 @@ function Quiz() {
 
       {submitted && (
         <p className="text-lg font-medium text-green-700">
-          🎉 Your Score: {score} / {questions.length}
+         Your Score: {score} / {questions.length}
         </p>
       )}
     </div>
