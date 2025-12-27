@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: false, // 👈 allow null for Google users
+    required: false, 
   },
   authProvider: {
     type: String,
@@ -32,7 +32,7 @@ userSchema.pre("save", async function (next) {
 
 // Compare password only for local users
 userSchema.methods.comparePassword = function (candidatePassword) {
-  if (!this.password) return false; // 👈 Google users have no password
+  if (!this.password) return false; 
   return bcrypt.compare(candidatePassword, this.password);
 };
 
